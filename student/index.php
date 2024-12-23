@@ -6,18 +6,12 @@ $result=mysqli_query($conn,$sql);
 while ($row=mysqli_fetch_assoc($result)) {
 	
 	$name=$row['name'];
-
-
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
 	
-<!-- Mirrored from dleohr.dreamstechnologies.com/template-1/dleohr-vertical/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 22 Dec 2024 03:17:35 GMT -->
 <head>
 	
-		<!-- Required meta tags -->
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		
