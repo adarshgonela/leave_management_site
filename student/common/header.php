@@ -7,7 +7,7 @@
 							<div class="col-lg-3 col-md-3 col-sm-3 col-6">
 								<div class="logo my-3 my-sm-0">
 									<a href="index.php">
-										<img src="assets/img/logo.png" alt="logo image" class="img-fluid" width="100">
+										<img src="../../assets/logoelms.png" alt="logo image1" class="img-fluid" width="100">
 									</a>
 								</div>
 							</div>
@@ -40,13 +40,13 @@
 											<div class="user-info align-right dropdown d-inline-block header-dropdown">
 												<a href="javascript:void(0)" data-toggle="dropdown" class=" menu-style dropdown-toggle">
 													<div class="user-avatar d-inline-block">
-														<img src="assets/img/profiles/img-6.jpg" alt="user avatar" class="rounded-circle img-fluid" width="55">
+														<img src="../../assets/img/profiles/img-6.jpg" alt="user avatar" class="rounded-circle img-fluid" width="55">
 													</div>
 												</a>
 												
 												<!-- Notifications -->
 												<div class="dropdown-menu notification-dropdown-menu shadow-lg border-0 p-3 m-0 dropdown-menu-right">
-													<a class="dropdown-item p-2" href="employment.html">
+													<a class="dropdown-item p-2" href="profile.php">
 														<span class="media align-items-center">
 															<span class="lnr lnr-user mr-3"></span>
 															<span class="media-body text-truncate">
@@ -104,7 +104,7 @@
 										</div>
 										<hr>
 										<div class="user-menu-items px-3 m-0">
-											<a class="px-0 pb-2 pt-0" href="index.html">
+											<a class="px-0 pb-2 pt-0" href="index.php">
 												<span class="media align-items-center">
 													<span class="lnr lnr-home mr-3"></span>
 													<span class="media-body text-truncate text-left">
