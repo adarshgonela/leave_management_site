@@ -180,7 +180,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-md-12">
+								<!-- <div class="col-md-12">
 									<div class="card ctm-border-radius shadow-sm grow">
 										<div class="card-header">
 											<h4 class="card-title mb-0">Leave Details</h4>
@@ -216,7 +216,7 @@
 											</div>
 										</div>
 									</div>
-								</div>
+								</div> -->
 								<div class="col-md-12">
 									<div class="card ctm-border-radius shadow-sm grow">
 										<div class="card-header">
