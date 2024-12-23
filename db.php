@@ -9,8 +9,8 @@ if($prod){
 else{
     $sname = "localhost";
     $uname = "root";
-    $password = "root";
-    $db_name = "lmsbtech";
+    $password = "";
+    $db_name = "lmsbtch";
 }
 
 

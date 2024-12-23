@@ -128,7 +128,7 @@ while ($row=mysqli_fetch_assoc($result)) {
 											</div>
 											<div class="card-right">
 												<h4 class="card-title">Pending   leaves</h4>
-												<p class="card-text">700</p>
+												<p class="card-text">25</p>
 											</div>
 										</div>
 									</div>
