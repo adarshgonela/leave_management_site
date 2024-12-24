@@ -1,7 +1,8 @@
 <?php
 $error = "";
-include_once ('../db.php');
-if (isset($_POST['register'])) {
+include_once('../db.php');
+
+if (isset($_POST['register'])) { 
     // Sanitize and validate input
     $name = mysqli_real_escape_string($conn, trim($_REQUEST['name']));
     $email = mysqli_real_escape_string($conn, trim($_REQUEST['email']));
@@ -19,29 +20,46 @@ if (isset($_POST['register'])) {
     } elseif (strlen($password) < 8) {
         $error = "Password must be at least 8 characters long!";
     } else {
-        // Hash the password before inserting
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        // Check if the email or roll number already exists in the database
+        $stmt = $conn->prepare("SELECT * FROM user WHERE email = ? OR rollnumber = ?");
+        $stmt->bind_param("ss", $email, $rollnumber);  // Bind the email and rollnumber parameters
+        $stmt->execute();
+        $stmt->store_result();
 
-        // Use prepared statements to prevent SQL injection
-        $stmt = $conn->prepare("INSERT INTO user (name, email, rollnumber, password) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("ssss", $name, $email, $rollnumber, $hashed_password);  // Bind rollnumber to the query
-
-        // Execute the query and check if it was successful
-        if ($stmt->execute()) {
-            $error= "New record created successfully";
+        if ($stmt->num_rows > 0) {
+            // If either email or rollnumber exists, set an appropriate error
+            $error = "Email or Roll Number is already registered!";
         } else {
-            // Log the error or display a generic message
-            error_log("Error inserting record: " . $stmt->error);
-            $error = "Something went wrong. Please try again later.";
+            // Hash the password before inserting
+            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+            // Use prepared statements to insert the new user data
+            $stmt = $conn->prepare("INSERT INTO user (name, email, rollnumber, password) VALUES (?, ?, ?, ?)");
+            $stmt->bind_param("ssss", $name, $email, $rollnumber, $hashed_password);  // Bind parameters
+
+            // Execute the query and check if it was successful
+            if ($stmt->execute()) {
+                $error = "New record created successfully";
+            } else {
+                // Log the error or display a generic message
+                error_log("Error inserting record: " . $stmt->error);
+                $error = "Something went wrong. Please try again later.";
+            }
+
+            // Close the prepared statement
+            $stmt->close();
         }
 
-        // Close the prepared statement
+        // Close the first prepared statement
         $stmt->close();
     }
 }
-mysqli_close($conn);
 
+// Close the database connection
+mysqli_close($conn);
 ?>
+
+
 
 
 
@@ -145,7 +163,7 @@ mysqli_close($conn);
 								</div> -->
 								<!-- /Social Login -->
 								
-								<div class="text-center dont-have">Already have an account? <a href="login.html">Login</a></div>
+								<div class="text-center dont-have">Already have an account? <a href="login.php">Login</a></div>
 							</div>
 						</div>
 					</div>

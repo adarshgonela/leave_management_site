@@ -41,7 +41,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 				  <div class="dot"></div>
 				</div>
 			</div> -->
-	
+
 			<!-- Header -->
 			<?php include_once('common/navbar.php');  ?>
 			<!-- /Header -->
@@ -64,7 +64,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 																<li class="breadcrumb-item d-inline-block"><a href="index.html" class="text-dark">Home</a></li>
 																<li class="breadcrumb-item d-inline-block active">Dashboard</li>
 															</ol> -->
-																<h4 class="text-dark">Student Dashboard</h4>
+																<h4 class="text-dark">HOD Dashboard</h4>
 															</div>
 														</div>
 													</div>
@@ -94,9 +94,9 @@ while ($row = mysqli_fetch_assoc($result)) {
 
 						<div class="col-xl-9 col-lg-8  col-md-12">
 							<div class="quicklink-sidebar-menu ctm-border-radius shadow-sm bg-white card grow">
-								<div class="card-body">
+								<!-- <div class="card-body">
 									<marquee behavior="" direction="left">Every student should maintain 65% attendence</marquee>
-								</div>
+								</div> -->
 								<!-- <div class="card-body">
 										<ul class="list-group list-group-horizontal-lg">
 											<li class="list-group-item text-center active button-5"><a href="index.html" class="text-white">Admin Dashboard</a></li>
@@ -159,6 +159,9 @@ while ($row = mysqli_fetch_assoc($result)) {
 									</div>
 								</div>
 							</div>
+								<div class="card-body">
+									<marquee behavior="" direction="left">Every student should maintain 65% attendence</marquee>
+								</div>
 							<!-- / Widget -->
 
 							<!-- Chart -->
