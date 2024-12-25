@@ -33,8 +33,8 @@
 
     $(window).on('load', function () {
         $('#loader').delay(100).fadeOut('slow');
-        $('#loader-wrapper').delay(500).fadeOut('slow');
-        $('body').delay(500).css({'overflow': 'visible'});
+        $('#loader-wrapper').delay(50).fadeOut('slow');
+        $('body').delay(50).css({'overflow': 'visible'});
     });
 
  //sidebar open and close

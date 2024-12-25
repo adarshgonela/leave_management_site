@@ -83,74 +83,49 @@ session_start();
 								<div class="col-md-12">
 									<div class="card ctm-border-radius shadow-sm grow">
 										<div class="card-header">
-											<h4 class="card-title mb-0">Apply Leaves</h4>
+											<h4 class="card-title mb-0">Add Student</h4>
 										</div>
 										<div class="card-body">
 											<form>
 												<div class="row">
-													<div class="col-sm-6">
-														<div class="form-group">
-															<label>
-															Leave Type
-															<span class="text-danger">*</span>
-															</label>
-															<select class="form-control select">
-																<option>Select Leave</option>
-																<option>Sick Leave</option>
-																<option>Personal Leave</option>
-																<option>Emergency Leave</option>
-																<option>vacation Leave</option>
-																<option>casual Leave</option>
-															</select>
-														</div>
-													</div>
 													<div class="col-sm-6 leave-col">
 														<div class="form-group">
-															<label>Remaining Leaves</label>
-															<input type="text" class="form-control" placeholder="10" disabled>
+															<label>Student Email</label>
+															<input type="email" class="form-control" placeholder="Student Email" >
+														</div>
+													</div>
+                                                    <div class="col-sm-6 leave-col">
+														<div class="form-group">
+															<label>Student Password</label>
+															<input type="text" class="form-control datetimepicker" placeholder="Student Password">
 														</div>
 													</div>
 												</div>
 												<div class="row">
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label>From</label>
-															<input type="text" class="form-control datetimepicker">
+															<label>Student Name</label>
+															<input type="text" class="form-control datetimepicker" placeholder="Student Name">
 														</div>
 													</div>
 													<div class="col-sm-6 leave-col">
 														<div class="form-group">
-															<label>To</label>
-															<input type="text" class="form-control datetimepicker">
+															<label>Student confirm Password</label>
+															<input type="text" class="form-control datetimepicker" placeholder="Student Confirm Password">
 														</div>
 													</div>
 												</div>
 												<div class="row">
 													<div class="col-sm-6">
 														<div class="form-group">
-															<label>
-															Half Day
-															<span class="text-danger">*</span>
-															</label>
-															<select class="form-control select">
-																<option>Select</option>
-																<option>First Half</option>
-																<option>Second Half</option>
-															</select>
+															<label>Student RollNumber</label>
+															<input type="text" class="form-control datetimepicker" placeholder="Student RollNumber">
 														</div>
 													</div>
-													<div class="col-sm-6 leave-col">
+													<div class="col-sm-6">
 														<div class="form-group">
-															<label>Number of Days Leave</label>
-															<input type="text" class="form-control" placeholder="2" disabled>
-														</div>
-													</div>
-												</div>
-												<div class="row">
-													<div class="col-sm-12">
-														<div class="form-group mb-0">
-															<label>Reason</label>
-															<textarea class="form-control" rows=4></textarea>
+															<label>Role</label>
+															<input type="text" class="form-control datetimepicker" value="student" disabled>
 														</div>
 													</div>
 												</div>
