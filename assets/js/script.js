@@ -2,7 +2,7 @@
     /*jslint browser: true*/
     /*global $, jQuery, alert*/
  // Defaultly Hiding sidebar Overlay
-    $("#sidebar_overlay").hide();
+    // $("#sidebar_overlay").hide();
 
  // Tooltip
 

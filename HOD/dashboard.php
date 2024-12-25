@@ -1,6 +1,7 @@
 <?php
 session_start();
 include_once('../auth/conn.php');
+include_once('../HOD/common/session.php');
 $rollnumber = $_SESSION['rollnumber'];
 $sql = "SELECT * FROM user where rollnumber='$rollnumber'";
 $result = mysqli_query($conn, $sql);
@@ -159,9 +160,9 @@ while ($row = mysqli_fetch_assoc($result)) {
 									</div>
 								</div>
 							</div>
-								<div class="card-body">
+								<!-- <div class="card-body">
 									<marquee behavior="" direction="left">Every student should maintain 65% attendence</marquee>
-								</div>
+								</div> -->
 							<!-- / Widget -->
 
 							<!-- Chart -->
@@ -201,26 +202,8 @@ while ($row = mysqli_fetch_assoc($result)) {
 	<?php   }  ?>
 	<div class="sidebar-overlay" id="sidebar_overlay"></div>
 
-	<!-- jQuery -->
-	<script src="../assets/js/jquery-3.2.1.min.js" type="1c3b3b47cad5cf489fe0065f-text/javascript"></script>
+	<?php  include_once('common/footer.php') ?>
 
-	<!-- Bootstrap Core JS -->
-	<script src="../assets/js/popper.min.js" type="1c3b3b47cad5cf489fe0065f-text/javascript"></script>
-	<script src="../assets/js/bootstrap.min.js" type="1c3b3b47cad5cf489fe0065f-text/javascript"></script>
-
-	<!-- Chart JS -->
-	<script src="../assets/js/Chart.min.js" type="1c3b3b47cad5cf489fe0065f-text/javascript"></script>
-	<script src="../assets/js/chart.js" type="1c3b3b47cad5cf489fe0065f-text/javascript"></script>
-
-	<!-- Sticky sidebar JS -->
-	<script src="../assets/plugins/theia-sticky-sidebar/ResizeSensor.js" type="1c3b3b47cad5cf489fe0065f-text/javascript"></script>
-	<script src="../assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js" type="1c3b3b47cad5cf489fe0065f-text/javascript"></script>
-
-	<!-- Custom Js -->
-	<script src="../assets/js/script.js" type="1c3b3b47cad5cf489fe0065f-text/javascript"></script>
-
-	<script src="../../../cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="1c3b3b47cad5cf489fe0065f-|49" defer></script>
-	<script src="../assets/js/script.js"></script>
 </body>
 
 

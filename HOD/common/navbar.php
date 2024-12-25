@@ -8,7 +8,7 @@
 							<div class="col-lg-3 col-md-3 col-sm-3 col-6">
 								<div class="logo my-3 my-sm-0">
 									<a href="dashboard.php">
-										<img src="../../assets/logoelms.png" alt="logo image1" class="img-fluid" width="100">
+										<img src="../assets/logoelms.png" alt="logo image1" class="img-fluid" width="100">
 									</a>
 								</div>
 							</div>
@@ -41,7 +41,7 @@
 											<div class="user-info align-right dropdown d-inline-block header-dropdown">
 												<a href="javascript:void(0)" data-toggle="dropdown" class=" menu-style dropdown-toggle">
 													<div class="user-avatar d-inline-block">
-														<img src="../../assets/img/profiles/img-6.jpg" alt="user avatar" class="rounded-circle img-fluid" width="55">
+														<img src="../assets/img/profiles/img-10.jpg" alt="user avatar" class="rounded-circle img-fluid" width="55">
 													</div>
 												</a>
 												
@@ -91,7 +91,7 @@
 										<div class="user-info align-center bg-theme text-center">
 											<a href="javascript:void(0)" class="d-block menu-style text-white">
 												<div class="user-avatar d-inline-block mr-3">
-													<img src="assets/img/profiles/img-6.jpg" alt="user avatar" class="rounded-circle img-fluid" width="55">
+													<img src="../assets/img/profiles/img-6.jpg" alt="user avatar" class="rounded-circle img-fluid" width="55">
 												</div>
 											</a>
 										</div>

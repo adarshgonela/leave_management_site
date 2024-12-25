@@ -1,5 +1,6 @@
 <?php
 session_start();
+include_once('../student/common/session.php');
 include_once('../auth/conn.php');
 $rollnumber = $_SESSION['rollnumber'];
 $sql = "SELECT * FROM user where rollnumber='$rollnumber'";
@@ -18,11 +19,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<?php  include_once('common/header.php'); ?>
 
-		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-		<!--[if lt IE 9]>
-		<script src="../assets/js/html5shiv.min.js"></script>
-		<script src="../assets/js/respond.min.js"></script>
-		<![endif]-->
+	
 
 	</head>
 
@@ -198,26 +195,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 	<?php   }  ?>
 	<div class="sidebar-overlay" id="sidebar_overlay"></div>
 
-	<!-- jQuery -->
-	<script src="../assets/js/jquery-3.2.1.min.js" type="1c3b3b47cad5cf489fe0065f-text/javascript"></script>
-
-	<!-- Bootstrap Core JS -->
-	<script src="../assets/js/popper.min.js" type="1c3b3b47cad5cf489fe0065f-text/javascript"></script>
-	<script src="../assets/js/bootstrap.min.js" type="1c3b3b47cad5cf489fe0065f-text/javascript"></script>
-
-	<!-- Chart JS -->
-	<script src="../assets/js/Chart.min.js" type="1c3b3b47cad5cf489fe0065f-text/javascript"></script>
-	<script src="../assets/js/chart.js" type="1c3b3b47cad5cf489fe0065f-text/javascript"></script>
-
-	<!-- Sticky sidebar JS -->
-	<script src="../assets/plugins/theia-sticky-sidebar/ResizeSensor.js" type="1c3b3b47cad5cf489fe0065f-text/javascript"></script>
-	<script src="../assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js" type="1c3b3b47cad5cf489fe0065f-text/javascript"></script>
-
-	<!-- Custom Js -->
-	<script src="../assets/js/script.js" type="1c3b3b47cad5cf489fe0065f-text/javascript"></script>
-
-	<script src="../../../cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="1c3b3b47cad5cf489fe0065f-|49" defer></script>
-	<script src="../assets/js/script.js"></script>
+	<?php include_once('common/footer.php'); ?>
 </body>
 
 

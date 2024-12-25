@@ -12,6 +12,7 @@ if (isset($_POST['login'])) {
         $row = mysqli_fetch_assoc($result);
         $role = $row['role'];
 		$_SESSION['rollnumber']=$row['rollnumber'];
+		$_SESSION['role']=$row['role'];
         if ($role == "student") {
             header("location: ../student/dashboard.php");  // Redirect to student dashboard
             exit();
@@ -80,7 +81,7 @@ if (isset($_POST['login'])) {
 				<div class="container">
 					<div class="loginbox shadow-sm grow">
 						<div class="login-left">
-							<img class="img-fluid" src="assets/img/logo.png" alt="Logo">
+							<img class="img-fluid" src="../assets/logoelms.png" alt="Logo">
 						</div>
 						<div class="login-right">
 							<div class="login-right-wrap">
@@ -112,7 +113,7 @@ if (isset($_POST['login'])) {
 									<span class="or-line"></span>
 									<span class="span-or">or</span>
 								</div>
-								<div class="text-center dont-have">Don’t have an account? <a href="register.html">Register</a></div>
+								<div class="text-center dont-have">Don’t have an account? <a href="register.php">Register</a></div>
 							</div>
 						</div>
 					</div>
