@@ -6,7 +6,6 @@ $result=mysqli_query($conn,$sql);
 while ($row=mysqli_fetch_assoc($result)) {
 	
 	$name=$row['name'];
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,7 +30,7 @@ while ($row=mysqli_fetch_assoc($result)) {
 		<!-- Custom CSS -->
 		<link rel="stylesheet" href="../assets/css/style.css">
 		
-		<title>student Dashboard</title>
+		<title>Admin Dashboard</title>
 				
 		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!--[if lt IE 9]>
@@ -79,7 +78,7 @@ while ($row=mysqli_fetch_assoc($result)) {
 																<li class="breadcrumb-item d-inline-block"><a href="index.html" class="text-dark">Home</a></li>
 																<li class="breadcrumb-item d-inline-block active">Dashboard</li>
 															</ol> -->
-															<h4 class="text-dark">Student Dashboard</h4>
+															<h4 class="text-dark">Admin Dashboard</h4>
 														</div>
 													</div>
 												</div>
@@ -94,13 +93,13 @@ while ($row=mysqli_fetch_assoc($result)) {
 											<img src="../assets/img/profiles/img-13.jpg" alt="User Avatar" class="img-fluid rounded-circle" width="100">
 										</div>
 										<div class="user-details">
-											<h4><b> <?php echo $name ?></b></h4>
-										
+											<h4><b> L Govardhan</b></h4>
+											
 										</div>
 									</div>
 								</div>
 								<!-- Sidebar -->
-								<?php  include_once('common/sidebar.php') ?>
+								<?php  include_once('facultysidebar.php') ?>
 								
 								<!-- /Sidebar -->
 								
@@ -110,7 +109,7 @@ while ($row=mysqli_fetch_assoc($result)) {
 						<div class="col-xl-9 col-lg-8  col-md-12">
 							<div class="quicklink-sidebar-menu ctm-border-radius shadow-sm bg-white card grow">
 									<div class="card-body">
-										<marquee behavior="" direction="left">Every student should maintain 65% attendence    Missing classes regularly will affect your overall academic standing </marquee>
+										<marquee behavior="" direction="left">Track attendance regularly to support academic discipline and consistency  </marquee>
 									</div>
 									<!-- <div class="card-body">
 										<ul class="list-group list-group-horizontal-lg">
@@ -128,8 +127,8 @@ while ($row=mysqli_fetch_assoc($result)) {
 												<i class="fa fa-users" aria-hidden="true"></i>
 											</div>
 											<div class="card-right">
-												<h4 class="card-title"> Leave   status </h4>
-												<p class="card-text">2</p>
+												<h4 class="card-title">Pending Applicaions</h4>
+												<p class="card-text">25</p>
 											</div>
 										</div>
 									</div>
@@ -141,7 +140,7 @@ while ($row=mysqli_fetch_assoc($result)) {
 												<i class="fa fa-building-o"></i>
 											</div>
 											<div class="card-right">
-												<h4 class="card-title">Remaining leaves</h4>
+												<h4 class="card-title">Approved Applicaions</h4>
 												<p class="card-text">30</p>
 											</div>
 										</div>
@@ -154,7 +153,7 @@ while ($row=mysqli_fetch_assoc($result)) {
 												<i class="fa fa-suitcase" aria-hidden="true"></i>
 											</div>
 											<div class="card-right">
-												<h4 class="card-title">Approved Leaves</h4>
+												<h4 class="card-title">Rejected Applications</h4>
 												<p class="card-text">3</p>
 											</div>
 										</div>
@@ -167,8 +166,8 @@ while ($row=mysqli_fetch_assoc($result)) {
 												<i class="fa fa-money" aria-hidden="true"></i>
 											</div>
 											<div class="card-right">
-												<h4 class="card-title">Rejected Leaves</h4>
-												<p class="card-text">2</p>
+												<h4 class="card-title">Total Leave Applications</h4>
+												<p class="card-text">45</p>
 											</div>
 										</div>
 									</div>

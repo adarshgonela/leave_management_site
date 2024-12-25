@@ -7,7 +7,8 @@
 							<div class="col-lg-3 col-md-3 col-sm-3 col-6">
 								<div class="logo my-3 my-sm-0">
 									<a href="index.php">
-										<img src="../../assets/logoelms.png" alt="logo image1" class="img-fluid" width="100">
+									<img src="../../assets/logoelms.png" alt="ELMS Logo" class="img-fluid" width="100">
+
 									</a>
 								</div>
 							</div>

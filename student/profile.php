@@ -168,7 +168,7 @@ while ($row=mysqli_fetch_assoc($result)) {
 													</div>
 												</div>
 												<div class="text-center">
-													<a href="javascript:void(0);" class="btn btn-theme button-1 text-white ctm-border-radius mt-4">Apply</a>
+													<a href="javascript:void(0);" class="btn btn-theme button-1 text-white ctm-border-radius mt-4">update</a>
 													<a href="javascript:void(0);" class="btn btn-danger text-white ctm-border-radius mt-4">Cancel</a>
 												</div>
 											</form>

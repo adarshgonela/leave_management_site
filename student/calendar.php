@@ -98,27 +98,19 @@ while ($row=mysqli_fetch_assoc($result)) {
 												<div class="col-6 align-items-center text-center">
 													<a href="index.html" class="text-dark p-4 first-slider-btn ctm-border-right ctm-border-left ctm-border-top"><span class="lnr lnr-home pr-0 pb-lg-2 font-23"></span><span class="">Dashboard</span></a>												
 												</div>
-												<div class="col-6 align-items-center shadow-none text-center">											
-													<a href="employees.html" class="text-dark p-4 second-slider-btn ctm-border-right ctm-border-top"><span class="lnr lnr-users pr-0 pb-lg-2 font-23"></span><span class="">Employees</span></a>												
-												</div>
-												<div class="col-6 align-items-center shadow-none text-center">												
-													<a href="company.html" class="text-dark p-4 ctm-border-right ctm-border-left"><span class="lnr lnr-apartment pr-0 pb-lg-2 font-23"></span><span class="">Company</span></a>												
-												</div>
+												
+											
 												<div class="col-6 align-items-center shadow-none text-center">												
 													<a href="calendar.html" class="text-white active p-4 ctm-border-right"><span class="lnr lnr-calendar-full pr-0 pb-lg-2 font-23"></span><span class="">Calendar</span></a>												
 												</div>
 												<div class="col-6 align-items-center shadow-none text-center">											
 													<a href="leave.html" class="text-dark p-4 ctm-border-right ctm-border-left"><span class="lnr lnr-briefcase pr-0 pb-lg-2 font-23"></span><span class="">Leave</span></a>											
 												</div>												
-												<div class="col-6 align-items-center shadow-none text-center">											
-													<a href="reviews.html" class="text-dark p-4 ctm-border-right"><span class="lnr lnr-star pr-0 pb-lg-2 font-23"></span><span class="">Reviews</span></a>												
-												</div>
+												
 												<div class="col-6 align-items-center shadow-none text-center">												
 													<a href="reports.html" class="text-dark p-4 ctm-border-right ctm-border-left"><span class="lnr lnr-rocket pr-0 pb-lg-2 font-23"></span><span class="">Reports</span></a>												
 												</div>
-												<div class="col-6 align-items-center shadow-none text-center">												
-													<a href="manage.html" class="text-dark p-4 ctm-border-right"><span class="lnr lnr-sync pr-0 pb-lg-2 font-23"></span><span class="">Manage</span></a>												
-												</div>
+												
 												<div class="col-6 align-items-center shadow-none text-center">											
 													<a href="settings.html" class="text-dark p-4 last-slider-btn1 ctm-border-right ctm-border-left"><span class="lnr lnr-cog pr-0 pb-lg-2 font-23"></span><span class="">Settings</span></a>												
 												</div>
@@ -354,7 +346,7 @@ while ($row=mysqli_fetch_assoc($result)) {
           <ol class="mt-2">
             <li>
               <a href="#" class="group flex">
-                <p class="flex-auto truncate font-medium text-gray-900 group-hover:text-indigo-600">Sam's birthday party</p>
+                <p class="flex-auto truncate font-medium text-gray-900 group-hover:text-indigo-600">pooja birthday party</p>
                 <time datetime="2022-01-25T14:00" class="ml-3 hidden flex-none text-gray-500 group-hover:text-indigo-600 xl:block">2PM</time>
               </a>
             </li>
