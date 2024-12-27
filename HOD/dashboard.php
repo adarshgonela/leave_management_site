@@ -114,7 +114,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 												<i class="fa fa-users" aria-hidden="true"></i>
 											</div>
 											<div class="card-right">
-												<h4 class="card-title">Pending leaves</h4>
+												<h4 class="card-title">Pending Applications</h4>
 												<p class="card-text">700</p>
 											</div>
 										</div>
@@ -127,7 +127,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 												<i class="fa fa-building-o"></i>
 											</div>
 											<div class="card-right">
-												<h4 class="card-title">Remaining leaves</h4>
+												<h4 class="card-title">Rejected Applications</h4>
 												<p class="card-text">30</p>
 											</div>
 										</div>
@@ -140,7 +140,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 												<i class="fa fa-suitcase" aria-hidden="true"></i>
 											</div>
 											<div class="card-right">
-												<h4 class="card-title">Approved Leaves</h4>
+												<h4 class="card-title">Approved Applications</h4>
 												<p class="card-text">3</p>
 											</div>
 										</div>
@@ -153,7 +153,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 												<i class="fa fa-money" aria-hidden="true"></i>
 											</div>
 											<div class="card-right">
-												<h4 class="card-title">Rejected Leaves</h4>
+												<h4 class="card-title">Total Leave Applications</h4>
 												<p class="card-text">2</p>
 											</div>
 										</div>

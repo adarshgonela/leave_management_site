@@ -4,8 +4,8 @@ $error = "";
 include_once('conn.php');
 if (isset($_POST['login'])) {
     $rollnumber = $_REQUEST['rollnumber'];
-	
-    $sql = "SELECT * FROM user WHERE rollnumber='$rollnumber'";
+	$password=$_REQUEST['password'];
+    $sql = "SELECT * FROM user WHERE rollnumber='$rollnumber' AND password='$password'";
     $result = mysqli_query($conn, $sql);
 
     if (mysqli_num_rows($result) === 1) {
@@ -21,7 +21,7 @@ if (isset($_POST['login'])) {
             exit();
         }
     } else {
-        $error= "No user found with this roll number.";
+        $error= "No user found with this roll number or password may be wrong";
     }
 }
 
@@ -54,11 +54,6 @@ if (isset($_POST['login'])) {
 		
 		<title>Login Page</title>
 		
-		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-		<!--[if lt IE 9]>
-		<script src="assets/js/html5shiv.min.js"></script>
-		<script src="assets/js/respond.min.js"></script>
-		<![endif]-->
 		
 	</head>
 	<body>
@@ -87,19 +82,19 @@ if (isset($_POST['login'])) {
 							<div class="login-right-wrap">
 								<h1>Login</h1>
 								<p class="account-subtitle">Access to our dashboard</p>
-								 <!-- Error Message Display -->
-								 <?php if ($error): ?>
-                                <div class="alert alert-danger" role="alert">
-                                    <?php echo $error; ?>
-                                </div>
-                            <?php endif; ?>
+									<!-- Error Message Display -->
+									<?php if ($error): ?>
+									<div class="alert alert-danger" role="alert">
+										<?php echo $error; ?>
+									</div>
+								<?php endif; ?>
 								<!-- Form -->
 								<form action="login.php" method="post">
 									<div class="form-group">
 										<input class="form-control" type="text" placeholder="Rollnumber" name="rollnumber">
 									</div>
 									<div class="form-group">
-										<input class="form-control" type="text" placeholder="Password">
+										<input class="form-control" type="text" placeholder="Password" name="password">
 										<input type="hidden" name="login">
 									</div>
 									<div class="form-group">
