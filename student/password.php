@@ -26,10 +26,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $confirmPassword = $_POST['confirmpassword'];
 
         if ($newPassword === $confirmPassword) {
-            // Store the password as plain text (not recommended)
+            // Hash the new password before storing it using PASSWORD_DEFAULT
+            $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+
             $sql = "UPDATE user SET password = ? WHERE email = ?";
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param("ss", $newPassword, $email);
+            $stmt->bind_param("ss", $hashedPassword, $email);
 
             if ($stmt->execute()) {
                 header("Location: login.php?msg=Password updated successfully. Please log in.");

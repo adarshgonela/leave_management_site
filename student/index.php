@@ -1,13 +1,29 @@
 <?php 
-include_once ('../db.php');
-$sql="SELECT * FROM user where id=1";
-$result=mysqli_query($conn,$sql);
+session_start();
+include_once('../db.php');
 
-while ($row=mysqli_fetch_assoc($result)) {
-	
-	$name=$row['name'];
+// Check if user is logged in
+if (!isset($_SESSION['rollnumber'])) {
+    header("Location: ../login.php"); // Redirect to login if not logged in
+    exit();
+}
 
+// Fetch user data based on the logged-in roll number
+$rollnumber = $_SESSION['rollnumber'];
+$sql = "SELECT * FROM user WHERE rollnumber = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $rollnumber);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($row = $result->fetch_assoc()) {
+    $name = $row['name'];
+} else {
+    echo "User not found.";
+    exit();
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 	
@@ -210,7 +226,7 @@ while ($row=mysqli_fetch_assoc($result)) {
 			
 		</div>
 		<!-- Inner Wrapper -->
-		<?php   }  ?>
+		
 		<div class="sidebar-overlay" id="sidebar_overlay"></div>
 		
 		<!-- jQuery -->

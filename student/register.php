@@ -51,7 +51,7 @@ if (isset($_POST['register'])) {
         }
 
         // Close the first prepared statement
-        $stmt->close();
+       
     }
 }
 
