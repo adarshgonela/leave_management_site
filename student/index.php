@@ -1,12 +1,29 @@
 <?php 
-include_once ('../db.php');
-$sql="SELECT * FROM user where id=1";
-$result=mysqli_query($conn,$sql);
+session_start();
+include_once('../db.php');
 
-while ($row=mysqli_fetch_assoc($result)) {
-	
-	$name=$row['name'];
+// Check if user is logged in
+if (!isset($_SESSION['rollnumber'])) {
+    header("Location: ../login.php"); // Redirect to login if not logged in
+    exit();
+}
+
+// Fetch user data based on the logged-in roll number
+$rollnumber = $_SESSION['rollnumber'];
+$sql = "SELECT * FROM user WHERE rollnumber = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $rollnumber);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($row = $result->fetch_assoc()) {
+    $name = $row['name'];
+} else {
+    echo "User not found.";
+    exit();
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 	
@@ -93,8 +110,8 @@ while ($row=mysqli_fetch_assoc($result)) {
 											<img src="../assets/img/profiles/img-13.jpg" alt="User Avatar" class="img-fluid rounded-circle" width="100">
 										</div>
 										<div class="user-details">
-											<h4><b>Welcome <?php echo $name ?></b></h4>
-											<p>Sun, 29 Nov 2019</p>
+											<h4><b> <?php echo $name ?></b></h4>
+										
 										</div>
 									</div>
 								</div>
@@ -109,7 +126,7 @@ while ($row=mysqli_fetch_assoc($result)) {
 						<div class="col-xl-9 col-lg-8  col-md-12">
 							<div class="quicklink-sidebar-menu ctm-border-radius shadow-sm bg-white card grow">
 									<div class="card-body">
-										<marquee behavior="" direction="left">Every student should maintain 65% attendence</marquee>
+										<marquee behavior="" direction="left">Every student should maintain 65% attendence    Missing classes regularly will affect your overall academic standing </marquee>
 									</div>
 									<!-- <div class="card-body">
 										<ul class="list-group list-group-horizontal-lg">
@@ -128,7 +145,7 @@ while ($row=mysqli_fetch_assoc($result)) {
 											</div>
 											<div class="card-right">
 												<h4 class="card-title">Pending   leaves</h4>
-												<p class="card-text">25</p>
+												<p class="card-text">2</p>
 											</div>
 										</div>
 									</div>
@@ -475,7 +492,7 @@ while ($row=mysqli_fetch_assoc($result)) {
 			
 		</div>
 		<!-- Inner Wrapper -->
-		<?php   }  ?>
+		
 		<div class="sidebar-overlay" id="sidebar_overlay"></div>
 		
 		<!-- jQuery -->

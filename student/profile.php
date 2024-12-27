@@ -1,5 +1,4 @@
 <?php 
-session_start();
 include_once ('../db.php');
 $sql="SELECT * FROM user where id=1";
 $result=mysqli_query($conn,$sql);
@@ -15,16 +14,33 @@ while ($row=mysqli_fetch_assoc($result)) {
 
 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 	
+<!-- Mirrored from dleohr.dreamstechnologies.com/template-1/dleohr-vertical/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 22 Dec 2024 03:17:35 GMT -->
 <head>
 	
 		<!-- Required meta tags -->
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		
-	<?php  include_once('common/header.php'); ?>
+		<!-- Favicon -->
+		<link rel="icon" type="image/x-icon" href="../assets/img/favicon.png">
+		
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+		
+		<!-- Linearicon Font -->
+		<link rel="stylesheet" href="../assets/css/lnr-icon.css">
+				
+		<!-- Fontawesome CSS -->
+        <link rel="stylesheet" href="../assets/css/font-awesome.min.css">
+		
+		<!-- Custom CSS -->
+		<link rel="stylesheet" href="../assets/css/style.css">
+		
+		<title>student Dashboard</title>
 				
 		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!--[if lt IE 9]>
@@ -51,7 +67,7 @@ while ($row=mysqli_fetch_assoc($result)) {
 			</div> -->
 
 			<!-- Header -->
-			<?php  include_once ('common/navbar.php');  ?>
+			<?php  include_once ('common/header.php');  ?>
 			<!-- /Header -->
 			
 			<!-- Content -->
@@ -193,4 +209,5 @@ while ($row=mysqli_fetch_assoc($result)) {
 		
 	<script src="../../cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="1c3b3b47cad5cf489fe0065f-|49" defer></script></body>
 
+<!-- Mirrored from dleohr.dreamstechnologies.com/template-1/dleohr-vertical/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 22 Dec 2024 03:17:42 GMT -->
 </html>
