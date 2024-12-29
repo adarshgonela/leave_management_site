@@ -9,7 +9,7 @@ if($prod){
 else{
     $sname = "localhost";
     $uname = "root";
-    $password = "root";
+    $password = "";
     $db_name = "lmsbtch";
 }
 

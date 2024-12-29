@@ -1,5 +1,4 @@
 <?php 
-session_start();
 include_once ('../db.php');
 $sql="SELECT * FROM user where id=1";
 $result=mysqli_query($conn,$sql);
@@ -21,9 +20,6 @@ while ($row=mysqli_fetch_assoc($result)) {
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		
-<<<<<<< HEAD
-		<?php  include_once('common/header.php'); ?>
-=======
 		<!-- Favicon -->
 		<link rel="icon" type="image/x-icon" href="../assets/img/favicon.png">
 		
@@ -42,7 +38,6 @@ while ($row=mysqli_fetch_assoc($result)) {
 		<link rel="stylesheet" href="../assets/css/style.css">
 		
 		<title>student Dashboard</title>
->>>>>>> 7c1f50944e5de79b7dbddeec3056feb2c9758927
 				
 		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!--[if lt IE 9]>
@@ -69,7 +64,7 @@ while ($row=mysqli_fetch_assoc($result)) {
 			</div> -->
 
 			<!-- Header -->
-			<?php  include_once ('common/navbar.php');  ?>
+			<?php  include_once ('common/header.php');  ?>
 			<!-- /Header -->
 			
 			<!-- Content -->
@@ -101,26 +96,26 @@ while ($row=mysqli_fetch_assoc($result)) {
 										<div class="card-body">
 											<div class="row no-gutters">
 												<div class="col-6 align-items-center text-center">
-													<a href="index.html" class="text-dark p-4 first-slider-btn ctm-border-right ctm-border-left ctm-border-top"><span class="lnr lnr-home pr-0 pb-lg-2 font-23"></span><span class="">Dashboard</span></a>												
+													<a href="index.php" class="text-dark p-4 first-slider-btn ctm-border-right ctm-border-left ctm-border-top"><span class="lnr lnr-home pr-0 pb-lg-2 font-23"></span><span class="">Dashboard</span></a>												
 												</div>
 												
 											
 												<div class="col-6 align-items-center shadow-none text-center">												
-													<a href="calendar.html" class="text-white active p-4 ctm-border-right"><span class="lnr lnr-calendar-full pr-0 pb-lg-2 font-23"></span><span class="">Calendar</span></a>												
+													<a href="calendar.php" class="text-white active p-4 ctm-border-right"><span class="lnr lnr-calendar-full pr-0 pb-lg-2 font-23"></span><span class="">Calendar</span></a>												
 												</div>
 												<div class="col-6 align-items-center shadow-none text-center">											
-													<a href="leave.html" class="text-dark p-4 ctm-border-right ctm-border-left"><span class="lnr lnr-briefcase pr-0 pb-lg-2 font-23"></span><span class="">Leave</span></a>											
+													<a href="leave.php" class="text-dark p-4 ctm-border-right ctm-border-left"><span class="lnr lnr-briefcase pr-0 pb-lg-2 font-23"></span><span class="">Leave</span></a>											
 												</div>												
 												
 												<div class="col-6 align-items-center shadow-none text-center">												
-													<a href="reports.html" class="text-dark p-4 ctm-border-right ctm-border-left"><span class="lnr lnr-rocket pr-0 pb-lg-2 font-23"></span><span class="">Reports</span></a>												
+													<a href="reports.php" class="text-dark p-4 ctm-border-right ctm-border-left"><span class="lnr lnr-rocket pr-0 pb-lg-2 font-23"></span><span class="">Reports</span></a>												
 												</div>
 												
 												<div class="col-6 align-items-center shadow-none text-center">											
-													<a href="settings.html" class="text-dark p-4 last-slider-btn1 ctm-border-right ctm-border-left"><span class="lnr lnr-cog pr-0 pb-lg-2 font-23"></span><span class="">Settings</span></a>												
+													<a href="settings.php" class="text-dark p-4 last-slider-btn1 ctm-border-right ctm-border-left"><span class="lnr lnr-cog pr-0 pb-lg-2 font-23"></span><span class="">Settings</span></a>												
 												</div>
 												<div class="col-6 align-items-center shadow-none text-center">											
-													<a href="employment.html" class="text-dark p-4 last-slider-btn ctm-border-right"><span class="lnr lnr-user pr-0 pb-lg-2 font-23"></span><span class="">Profile</span></a>												
+													<a href="profile.php" class="text-dark p-4 last-slider-btn ctm-border-right"><span class="lnr lnr-user pr-0 pb-lg-2 font-23"></span><span class="">Profile</span></a>												
 												</div>
 											</div>
 										</div>
