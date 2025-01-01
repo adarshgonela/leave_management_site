@@ -1,5 +1,6 @@
 <?php
 session_start();
+include_once('../db.php');
 include_once('../auth/conn.php');
 $error="";
 // Check if the user is logged in
@@ -54,15 +55,29 @@ if (isset($_POST['leave'])) {
     $todate = mysqli_real_escape_string($conn, $_REQUEST['todate']);
     $fromdate = mysqli_real_escape_string($conn, $_REQUEST['fromdate']);
 
+
+$startDate = new DateTime($fromdate);
+$endDate = new DateTime($todate);
+
+$interval = $startDate->diff($endDate);
+
+$days = $interval->days;
+
+// echo $days;
     // Validate date range
     if (strtotime($fromdate) > strtotime($todate)) {
         $error= "The from date cannot be after the to date.";
         exit();
     }
 
+	$date = DateTime::createFromFormat('Y-m-d', $fromdate);
+$fromdaterev = $date->format('d-m-Y');
+$date = DateTime::createFromFormat('Y-m-d', $todate);
+$todaterev = $date->format('d-m-Y');
+
     // Insert the leave request
-    $sql = "INSERT INTO leaves (studentrollnumber, leavetype, reason, todate, fromdate, hodrollnumber, classinchargerollnumber,status,applyingtime) 
-            VALUES ('$studentrollnumber', '$leavetype', '$reason', '$todate', '$fromdate', '$hodrollnumber', '$classinchargerollnumber','pending',NOW())";
+    $sql = "INSERT INTO leaves (studentrollnumber, leavetype, reason, todate, fromdate, hodrollnumber, classinchargerollnumber,status,applyingtime,noofdaystaken) 
+            VALUES ('$studentrollnumber', '$leavetype', '$reason', '$todaterev', '$fromdaterev', '$hodrollnumber', '$classinchargerollnumber','pending','$datee','$days')";
 
     $result = mysqli_query($conn, $sql);
     
@@ -75,6 +90,7 @@ if (isset($_POST['leave'])) {
         $error= "Error applying for leave. Please try again.";
     }  
 }
+
 ?>
 
 
@@ -151,8 +167,6 @@ if (isset($_POST['leave'])) {
 										<h4 class="card-title mb-0">Apply Leaves</h4>
 									</div>
 									<div class="card-body">
-							
-
 										<form action="leave.php" method="post">
 											<div class="row">
 												<div class="col-sm-6">
@@ -240,13 +254,11 @@ if (isset($_POST['leave'])) {
 									<div class="card-body">
 										<div class="employee-office-table">
 											<div class="table-responsive">
-												<table class="table custom-table mb-0">
+											<table class="table custom-table mb-0">
 													<thead>
-
-
-
 														<tr>
 															<th>Roll Number</th>
+															<th>Date Applied</th>
 															<th>Leave Type</th>
 															<th>From</th>
 															<th>To</th>
@@ -261,38 +273,36 @@ if (isset($_POST['leave'])) {
 													<tbody>
 														<?php
 														include_once('../db.php');
-														$sql = "SELECT * FROM leaves where id=1";
+														$limit = 10;
+														$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+														$offset = ($page - 1) * $limit;
+
+														$result = $conn->query("SELECT COUNT(*) AS total FROM leaves WHERE studentrollnumber = '$rollnumber'");
+														$row = $result->fetch_assoc();
+														$total_rows = $row['total'];
+														$total_pages = ceil($total_rows / $limit); //50/10=5
+
+														$sql = "SELECT * FROM leaves WHERE studentrollnumber = '$rollnumber' AND DATE(applyingtime) = CURDATE() LIMIT $offset, $limit";
+
 														$result = mysqli_query($conn, $sql);
 
 														while ($row = mysqli_fetch_assoc($result)) {
 															$leavetype = $row['leavetype'];
-
-															$rollnumber = $row['rollnumber'];
+															$rollnumber = $row['studentrollnumber'];
 															$todate = $row['todate'];
 															$fromdate = $row['fromdate'];
 															$status = $row['status'];
 															$reason = $row['reason'];
-
-
-
-
-
 														?>
-
 															<tr>
 																<td>
 																	<?php echo $rollnumber ?>
 																</td>
+																<td><?php  echo $row['applyingtime']?></td>
 																<td><?php echo $leavetype ?></td>
 																<td><?php echo $fromdate ?></td>
 																<td><?php echo $todate ?></td>
-																<!-- <td>3</td> -->
-																<!-- <td>9</td> -->
 																<td><?php echo $reason ?></td>
-
-
-
-
 																<td><a href="javascript:void(0)" class="btn btn-theme ctm-border-radius text-white btn-sm">Approved</a></td>
 																<td class="text-right text-danger"><a href="javascript:void(0);" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#delete">
 																		<span class="lnr lnr-trash"></span> Delete
@@ -304,6 +314,31 @@ if (isset($_POST['leave'])) {
 														<?php  }  ?>
 													</tbody>
 												</table>
+												<nav aria-label="Page navigation example">
+													<ul class="pagination justify-content-center">
+														<li class="page-item <?php echo ($page == 1) ? 'disabled' : ''; ?>">
+															<a class="page-link" href="<?php echo ($page > 1) ? '?page=' . ($page - 1) : '#'; ?>">Previous</a>
+														</li>
+
+														<?php
+														for ($i = 1; $i <= $total_pages; $i++) {
+															if ($i == $page) {
+																echo "<li class='page-item active'><span class='page-link'>$i</span></li>";  // Current page
+															} else {
+																echo "<li class='page-item'><a class='page-link' href='?page=$i'>$i</a></li>";
+															}
+														}
+														?>
+
+														<li class="page-item <?php echo ($page == $total_pages) ? 'disabled' : ''; ?>">
+															<a class="page-link" href="<?php echo ($page < $total_pages) ? '?page=' . ($page + 1) : '#'; ?>">Next</a>
+														</li>
+													</ul>
+												</nav>
+
+
+
+
 											</div>
 										</div>
 									</div>

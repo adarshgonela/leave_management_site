@@ -13,3 +13,4 @@
 		<link rel="stylesheet" href="../assets/css/style.css">
 		
 		<title>student Dashboard</title>
+		<script src="https://cdn.tailwindcss.com"></script>

@@ -11,5 +11,5 @@
 		
 		<!-- Custom CSS -->
 		<link rel="stylesheet" href="../assets/css/style.css">
-		
+		<script src="https://cdn.tailwindcss.com"></script>
 		<title>student Dashboard</title>

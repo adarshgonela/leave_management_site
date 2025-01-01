@@ -47,7 +47,9 @@
 												
 												<!-- Notifications -->
 												<div class="dropdown-menu notification-dropdown-menu shadow-lg border-0 p-3 m-0 dropdown-menu-right">
-													<a class="dropdown-item p-2" href="profile.php">
+												<span class="text-truncate"><?php echo $_SESSION['rollnumber']; ?></span>
+												
+												<a class="dropdown-item p-2" href="profile.php">
 														<span class="media align-items-center">
 															<span class="lnr lnr-user mr-3"></span>
 															<span class="media-body text-truncate">

@@ -1,7 +1,11 @@
 <?php  
-date_default_timezone_set("Asia/Calcutta");
+$timezone = new DateTimeZone('Asia/Kolkata');
 
-include "../db.php";
+$date = new DateTime('now', $timezone);
+
+$datee=$date->format('d-m-Y H:i:s');
+
+include_once("../db.php");
 function input($key) {
 	global $_REQUEST;
 	if(isset($_REQUEST[$key]) && $_REQUEST[$key] && trim($_REQUEST[$key])!=""){
