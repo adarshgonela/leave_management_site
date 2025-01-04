@@ -115,25 +115,24 @@ while ($row = mysqli_fetch_assoc($result)) {
 												<i class="fa fa-users" aria-hidden="true"></i>
 											</div>
 											<div class="card-right">
-												<h4 class="card-title">Pending Applications</h4>
-												<p class="card-text">700</p>
+
+												<?php
+												$sql = "SELECT COUNT(*) AS status
+												FROM lmsbtech.leaves
+												WHERE status = 'pending'
+												AND studentrollnumber = '$rollnumber'";
+
+												$result = mysqli_query($conn, $sql);
+												$row = $result->fetch_assoc();
+
+												?>
+												<h4 class="card-title">Pending leaves</h4>
+												<p class="card-text"><?php echo $row['status']; ?></p>
 											</div>
 										</div>
 									</div>
 								</div>
-								<div class="col-xl-3 col-lg-6 col-sm-6 col-12">
-									<div class="card dash-widget ctm-border-radius shadow-sm grow">
-										<div class="card-body">
-											<div class="card-icon bg-warning">
-												<i class="fa fa-building-o"></i>
-											</div>
-											<div class="card-right">
-												<h4 class="card-title">Rejected Applications</h4>
-												<p class="card-text">30</p>
-											</div>
-										</div>
-									</div>
-								</div>
+
 								<div class="col-xl-3 col-lg-6 col-sm-6 col-12">
 									<div class="card dash-widget ctm-border-radius shadow-sm grow">
 										<div class="card-body">
@@ -141,8 +140,18 @@ while ($row = mysqli_fetch_assoc($result)) {
 												<i class="fa fa-suitcase" aria-hidden="true"></i>
 											</div>
 											<div class="card-right">
-												<h4 class="card-title">Approved Applications</h4>
-												<p class="card-text">3</p>
+											<?php
+												$sql = "SELECT COUNT(*) AS status
+												FROM lmsbtech.leaves
+												WHERE status = 'approved'
+												AND studentrollnumber = '$rollnumber'";
+
+												$result = mysqli_query($conn, $sql);
+												$row = $result->fetch_assoc();
+
+												?>
+												<h4 class="card-title">Approved Leaves</h4>
+												<p class="card-text"><?php echo $row['status']; ?></p>
 											</div>
 										</div>
 									</div>
@@ -154,8 +163,32 @@ while ($row = mysqli_fetch_assoc($result)) {
 												<i class="fa fa-money" aria-hidden="true"></i>
 											</div>
 											<div class="card-right">
-												<h4 class="card-title">Total Leave Applications</h4>
-												<p class="card-text">2</p>
+											<?php
+												$sql = "SELECT COUNT(*) AS status
+												FROM lmsbtech.leaves
+												WHERE status = 'rejected'
+												AND studentrollnumber = '$rollnumber'";
+
+												$result = mysqli_query($conn, $sql);
+												$row = $result->fetch_assoc();
+
+												?>
+												<h4 class="card-title">Rejected Leaves</h4>
+												<p class="card-text"><?php echo $row['status']; ?></p>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-xl-3 col-lg-6 col-sm-6 col-12">
+									<div class="card dash-widget ctm-border-radius shadow-sm grow">
+										<div class="card-body">
+											<div class="card-icon bg-warning">
+												<i class="fa fa-building-o"></i>
+											</div>
+											<div class="card-right">
+												
+												<h4 class="card-title">Remaining leaves</h4>
+												<p class="card-text">30</p>
 											</div>
 										</div>
 									</div>

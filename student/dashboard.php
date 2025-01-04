@@ -114,9 +114,12 @@ while ($row = mysqli_fetch_assoc($result)) {
 
 												<?php
 												$sql = "SELECT COUNT(*) AS status
-												FROM lmsbtech.leaves
-												WHERE status = 'pending'
-												AND studentrollnumber = '$rollnumber'";
+												FROM leaves l
+												JOIN user u ON l.studentrollnumber = u.rollnumber
+												WHERE l.status = 'pending'
+												AND l.studentrollnumber = '$rollnumber'
+												AND (u.role = 'student' OR u.role = 'classincharge')";
+
 
 												$result = mysqli_query($conn, $sql);
 												$row = $result->fetch_assoc();
@@ -138,9 +141,12 @@ while ($row = mysqli_fetch_assoc($result)) {
 											<div class="card-right">
 											<?php
 												$sql = "SELECT COUNT(*) AS status
-												FROM lmsbtech.leaves
-												WHERE status = 'approved'
-												AND studentrollnumber = '$rollnumber'";
+												FROM leaves l
+												JOIN user u ON l.studentrollnumber = u.rollnumber
+												WHERE l.status = 'approved'
+												AND l.studentrollnumber = '$rollnumber'
+												AND (u.role = 'student' OR u.role = 'classincharge')";
+
 
 												$result = mysqli_query($conn, $sql);
 												$row = $result->fetch_assoc();
@@ -161,9 +167,12 @@ while ($row = mysqli_fetch_assoc($result)) {
 											<div class="card-right">
 											<?php
 												$sql = "SELECT COUNT(*) AS status
-												FROM lmsbtech.leaves
-												WHERE status = 'rejected'
-												AND studentrollnumber = '$rollnumber'";
+												FROM leaves l
+												JOIN user u ON l.studentrollnumber = u.rollnumber
+												WHERE l.status = 'rejected'
+												AND l.studentrollnumber = '$rollnumber'
+												AND (u.role = 'student' OR u.role = 'classincharge')";
+
 
 												$result = mysqli_query($conn, $sql);
 												$row = $result->fetch_assoc();

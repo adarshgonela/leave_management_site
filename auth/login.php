@@ -2,31 +2,43 @@
 session_start();
 $error = "";
 include_once('conn.php');
+
 if (isset($_POST['login'])) {
     $rollnumber = $_REQUEST['rollnumber'];
-	$password=$_REQUEST['password'];
-    $sql = "SELECT * FROM user WHERE rollnumber='$rollnumber' AND password='$password'";
+    $password = $_REQUEST['password'];
+
+    // Query to retrieve the hashed password from the database
+    $sql = "SELECT * FROM user WHERE rollnumber='$rollnumber'";
     $result = mysqli_query($conn, $sql);
 
     if (mysqli_num_rows($result) === 1) {
         $row = mysqli_fetch_assoc($result);
+        $storedHashPassword = $row['password'];  // Retrieve hashed password from database
         $role = $row['role'];
-		$_SESSION['rollnumber']=$row['rollnumber'];
-		$_SESSION['role']=$row['role'];
-        if ($role == "student") {
-            header("location: ../student/dashboard.php");  // Redirect to student dashboard
-            exit();
-        } elseif ($role == 'hod') {
-            header('Location: ../HOD/dashboard.php');  // Redirect to HOD dashboard
-            exit();
+
+        // Verify entered password with stored hash
+        if (password_verify($password, $storedHashPassword)) {
+            $_SESSION['rollnumber'] = $row['rollnumber'];
+            $_SESSION['role'] = $row['role'];
+
+            // Redirect based on role
+            if ($role == "student") {
+                header("location: ../student/dashboard.php");  // Redirect to student dashboard
+                exit();
+            } elseif ($role == 'hod') {
+                header('Location: ../HOD/dashboard.php');  // Redirect to HOD dashboard
+                exit();
+            }
+        } else {
+            $error = "No user found with this roll number or password may be wrong.";
         }
     } else {
-        $error= "No user found with this roll number or password may be wrong";
+        $error = "No user found with this roll number.";
     }
 }
-
-
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -94,7 +106,7 @@ if (isset($_POST['login'])) {
 										<input class="form-control" type="text" placeholder="Rollnumber" name="rollnumber">
 									</div>
 									<div class="form-group">
-										<input class="form-control" type="text" placeholder="Password" name="password">
+										<input class="form-control" type="password" placeholder="Password" name="password">
 										<input type="hidden" name="login">
 									</div>
 									<div class="form-group">
@@ -103,7 +115,7 @@ if (isset($_POST['login'])) {
 								</form>
 								<!-- /Form -->
 								
-								<div class="text-center forgotpass"><a href="forgot-password.html">Forgot Password?</a></div>
+								<div class="text-center forgotpass"><a href="forgotpassword.php">Forgot Password?</a></div>
 								<div class="login-or">
 									<span class="or-line"></span>
 									<span class="span-or">or</span>
