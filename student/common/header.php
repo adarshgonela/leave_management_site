@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <header class="header">
     <!-- Top Header Section -->
     <div class="top-header-section">
@@ -201,3 +202,21 @@
     </div>
     <!-- /Top Header Section -->
 </header>
+=======
+    <link rel="icon" type="image/x-icon" href="../assets/img/favicon.png">
+		
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+		
+		<!-- Linearicon Font -->
+		<link rel="stylesheet" href="../assets/css/lnr-icon.css">
+				
+		<!-- Fontawesome CSS -->
+        <link rel="stylesheet" href="../assets/css/font-awesome.min.css">
+		
+		<!-- Custom CSS -->
+		<link rel="stylesheet" href="../assets/css/style.css">
+		
+		<title>student Dashboard</title>
+		<script src="https://cdn.tailwindcss.com"></script>
+>>>>>>> 447a4177d7f668c11b39e4726fe5514215a880b3

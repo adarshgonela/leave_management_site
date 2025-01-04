@@ -1,0 +1,15 @@
+<?php   
+														include_once ('../db.php');
+														$sql="SELECT * FROM leaves where studentrollnumber='$rollnumber'";
+														$result=mysqli_query($conn,$sql);
+														
+														while ($row=mysqli_fetch_assoc($result)) {
+														$leavetype=$row['leavetype'];
+															
+															$rollnumber=$row['studentrollnumber'];
+														$todate=$row['todate'];
+														$fromdate=$row['fromdate'];
+														$status=$row['status'];
+														$reason=$row['reason'];
+														
+														?>
