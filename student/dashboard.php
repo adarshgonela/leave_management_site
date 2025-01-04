@@ -1,5 +1,6 @@
 <?php
 session_start();
+include_once('title.php');
 include_once('../student/common/session.php');
 include_once('../auth/conn.php');
 $rollnumber = $_SESSION['rollnumber'];
@@ -17,9 +18,9 @@ while ($row = mysqli_fetch_assoc($result)) {
 
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<?php  include_once('common/header.php'); ?>
+		<?php include_once('common/header.php'); ?>
 
-	
+
 
 	</head>
 
@@ -38,7 +39,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 				  <div class="dot"></div>
 				</div>
 			</div> -->
-	
+
 			<!-- Header -->
 			<?php include_once('common/navbar.php');  ?>
 			<!-- /Header -->
@@ -61,7 +62,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 																<li class="breadcrumb-item d-inline-block"><a href="index.html" class="text-dark">Home</a></li>
 																<li class="breadcrumb-item d-inline-block active">Dashboard</li>
 															</ol> -->
-																<h4 class="text-dark">Student Dashboard</h4>
+																<h4 class="text-dark"><?php echo $title ?> Dashboard</h4>
 															</div>
 														</div>
 													</div>
@@ -110,25 +111,24 @@ while ($row = mysqli_fetch_assoc($result)) {
 												<i class="fa fa-users" aria-hidden="true"></i>
 											</div>
 											<div class="card-right">
+
+												<?php
+												$sql = "SELECT COUNT(*) AS status
+												FROM lmsbtech.leaves
+												WHERE status = 'pending'
+												AND studentrollnumber = '$rollnumber'";
+
+												$result = mysqli_query($conn, $sql);
+												$row = $result->fetch_assoc();
+
+												?>
 												<h4 class="card-title">Pending leaves</h4>
-												<p class="card-text">700</p>
+												<p class="card-text"><?php echo $row['status']; ?></p>
 											</div>
 										</div>
 									</div>
 								</div>
-								<div class="col-xl-3 col-lg-6 col-sm-6 col-12">
-									<div class="card dash-widget ctm-border-radius shadow-sm grow">
-										<div class="card-body">
-											<div class="card-icon bg-warning">
-												<i class="fa fa-building-o"></i>
-											</div>
-											<div class="card-right">
-												<h4 class="card-title">Remaining leaves</h4>
-												<p class="card-text">30</p>
-											</div>
-										</div>
-									</div>
-								</div>
+
 								<div class="col-xl-3 col-lg-6 col-sm-6 col-12">
 									<div class="card dash-widget ctm-border-radius shadow-sm grow">
 										<div class="card-body">
@@ -136,8 +136,18 @@ while ($row = mysqli_fetch_assoc($result)) {
 												<i class="fa fa-suitcase" aria-hidden="true"></i>
 											</div>
 											<div class="card-right">
+											<?php
+												$sql = "SELECT COUNT(*) AS status
+												FROM lmsbtech.leaves
+												WHERE status = 'approved'
+												AND studentrollnumber = '$rollnumber'";
+
+												$result = mysqli_query($conn, $sql);
+												$row = $result->fetch_assoc();
+
+												?>
 												<h4 class="card-title">Approved Leaves</h4>
-												<p class="card-text">3</p>
+												<p class="card-text"><?php echo $row['status']; ?></p>
 											</div>
 										</div>
 									</div>
@@ -149,8 +159,32 @@ while ($row = mysqli_fetch_assoc($result)) {
 												<i class="fa fa-money" aria-hidden="true"></i>
 											</div>
 											<div class="card-right">
+											<?php
+												$sql = "SELECT COUNT(*) AS status
+												FROM lmsbtech.leaves
+												WHERE status = 'rejected'
+												AND studentrollnumber = '$rollnumber'";
+
+												$result = mysqli_query($conn, $sql);
+												$row = $result->fetch_assoc();
+
+												?>
 												<h4 class="card-title">Rejected Leaves</h4>
-												<p class="card-text">2</p>
+												<p class="card-text"><?php echo $row['status']; ?></p>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-xl-3 col-lg-6 col-sm-6 col-12">
+									<div class="card dash-widget ctm-border-radius shadow-sm grow">
+										<div class="card-body">
+											<div class="card-icon bg-warning">
+												<i class="fa fa-building-o"></i>
+											</div>
+											<div class="card-right">
+												
+												<h4 class="card-title">Remaining leaves</h4>
+												<p class="card-text">30</p>
 											</div>
 										</div>
 									</div>
@@ -196,7 +230,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 	<div class="sidebar-overlay" id="sidebar_overlay"></div>
 
 	<?php include_once('common/footer.php'); ?>
-</body>
+	</body>
 
 
 	</html>

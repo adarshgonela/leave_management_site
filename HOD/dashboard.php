@@ -1,5 +1,6 @@
 <?php
 session_start();
+include_once('title.php');
 include_once('../auth/conn.php');
 include_once('../HOD/common/session.php');
 $rollnumber = $_SESSION['rollnumber'];
@@ -65,7 +66,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 																<li class="breadcrumb-item d-inline-block"><a href="index.html" class="text-dark">Home</a></li>
 																<li class="breadcrumb-item d-inline-block active">Dashboard</li>
 															</ol>
-															<h4 class="text-dark">HOD Dashboard</h4>
+															<h4 class="text-dark"><?php echo $title ?> Dashboard</h4>
 														</div>
 													</div>
 												</div>
