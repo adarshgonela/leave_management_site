@@ -63,7 +63,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 													<div class="custom-search input-group">
 														<div class="custom-breadcrumb">
 															<ol class="breadcrumb no-bg-color d-inline-block p-0 m-0 mb-2">
-																<li class="breadcrumb-item d-inline-block"><a href="index.html" class="text-dark">Home</a></li>
+																<li class="breadcrumb-item d-inline-block"><a href="dashboard.php" class="text-dark">Home</a></li>
 																<li class="breadcrumb-item d-inline-block active">Dashboard</li>
 															</ol>
 															<h4 class="text-dark"><?php echo $title ?> Dashboard</h4>
@@ -119,8 +119,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 												<?php
 												$sql = "SELECT COUNT(*) AS status
 												FROM lmsbtech.leaves
-												WHERE status = 'pending'
-												AND studentrollnumber = '$rollnumber'";
+												WHERE status = 'pending'";
 
 												$result = mysqli_query($conn, $sql);
 												$row = $result->fetch_assoc();
@@ -142,9 +141,8 @@ while ($row = mysqli_fetch_assoc($result)) {
 											<div class="card-right">
 											<?php
 												$sql = "SELECT COUNT(*) AS status
-												FROM lmsbtech.leaves
-												WHERE status = 'approved'
-												AND studentrollnumber = '$rollnumber'";
+												FROM leaves
+												WHERE status = 'approved'";												;
 
 												$result = mysqli_query($conn, $sql);
 												$row = $result->fetch_assoc();
@@ -165,9 +163,8 @@ while ($row = mysqli_fetch_assoc($result)) {
 											<div class="card-right">
 											<?php
 												$sql = "SELECT COUNT(*) AS status
-												FROM lmsbtech.leaves
-												WHERE status = 'rejected'
-												AND studentrollnumber = '$rollnumber'";
+												FROM leaves
+												WHERE status = 'rejected'";
 
 												$result = mysqli_query($conn, $sql);
 												$row = $result->fetch_assoc();
@@ -194,7 +191,7 @@ FROM leaves";
 												$row = $result->fetch_assoc();
 
 												?>
-												<h4 class="card-title">Total leaves</h4>
+												<h4 class="card-title"><a href="leave.php">Total leaves</a></h4>
 												<p class="card-text"><?php echo $row['total_records']; ?></p>
 											</div>
 										</div>
