@@ -82,9 +82,10 @@ $error = "";
 															<th>From</th>
 															<th>To</th>
 															<th>Days</th>
+															<!-- <th>Remaining Days</th> -->
 															<th>Reason</th>
 															<th>Status</th>
-															<th class="text-right">Action</th>
+															<!-- <th class="text-right">Action</th> -->
 															<th>Applying Time</th>
 														</tr>
 													</thead>
@@ -138,11 +139,11 @@ $error = "";
 																			<option value="rejected">Rejected</option>
 																		</select>
 																	</td>
-																	<td class="text-right text-danger">
+																	<!-- <td class="text-right text-danger">
 																		<button type="submit" class="btn btn-sm btn-outline-danger">
 																			<span class="lnr lnr-trash"></span> Update
 																		</button>
-																	</td>
+																	</td> -->
 																</form>
 																<td><?php echo $time; ?></td>
 															</tr>

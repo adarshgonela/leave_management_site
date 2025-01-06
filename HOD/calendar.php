@@ -89,19 +89,19 @@ while ($row=mysqli_fetch_assoc($result)) {
 									<div id="calendar">
 
 <!-- component -->
-<style>
+<style> 
     .bg-gradient::after {
-        background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.6), transparent 20%);
+        background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(0, 0, 0, 0.6), transparent 20%);
     }
 </style>
 
-<div class="flex flex-col items-center justify-center min-h-screen px-6 bg-gray-900">
-    <h1 class="text-2xl font-bold text-center text-white">Tailwind CSS Calendar with Hover Effect</h1>
-    <p class="flex items-end mt-2 text-base text-center text-gray-400 gap-x-2">Built using HTML, Tailwind CSS, and JavaScript. Like and Share for more awesome content
+<div class="flex flex-col items-center justify-center min-h-screen px-6" style="background-color:#3e007c;">
+    <h1 class="text-2xl font-bold text-center text-white">Calendar </h1>
+    <!-- <p class="flex items-end mt-2 text-base text-center text-gray-400 gap-x-2">Built using HTML, Tailwind CSS, and JavaScript. Like and Share for more awesome content
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 text-red-500 shrink-0">
             <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
         </svg>
-    </p>
+    </p> -->
 
     <!-- Month Navigation -->
     <div class="flex items-center mt-6 text-white">
@@ -112,13 +112,13 @@ while ($row=mysqli_fetch_assoc($result)) {
 
     <!-- Calendar Grid -->
     <div class="grid w-full max-w-xl grid-cols-7 gap-6 mx-auto mt-6">
-        <p class="flex items-center justify-center h-16 text-blue-300">Sa</p>
-        <p class="flex items-center justify-center h-16 text-blue-300">Fr</p>
-        <p class="flex items-center justify-center h-16 text-blue-300">Th</p>
-        <p class="flex items-center justify-center h-16 text-blue-300">We</p>
-        <p class="flex items-center justify-center h-16 text-blue-300">Tu</p>
-        <p class="flex items-center justify-center h-16 text-blue-300">Mo</p>
-        <p class="flex items-center justify-center h-16 text-blue-300">Su</p>
+        <p class="flex items-center justify-center h-16 text-gray-300">Sa</p>
+        <p class="flex items-center justify-center h-16 text-gray-300">Fr</p>
+        <p class="flex items-center justify-center h-16 text-gray-300">Th</p>
+        <p class="flex items-center justify-center h-16 text-gray-300">We</p>
+        <p class="flex items-center justify-center h-16 text-gray-300">Tu</p>
+        <p class="flex items-center justify-center h-16 text-gray-300">Mo</p>
+        <p class="flex items-center justify-center h-16 text-gray-300">Su</p>
     </div>
 
     <div id="daysGrid" class="grid w-full max-w-xl grid-cols-7 gap-6 mx-auto"></div>
@@ -163,7 +163,7 @@ while ($row=mysqli_fetch_assoc($result)) {
             dayElement.classList.add("relative", "w-full", "h-12", "cursor-pointer", "hover:scale-110", "box", "bg-gradient", "after:absolute", "after:inset-0", "after:z-10", "after:h-full", "after:w-full", "after:transition-opacity", "after:duration-500", "hover:bg-white");
 
             dayElement.innerHTML = `
-                <div class="absolute inset-[3px] z-20 flex items-center justify-center bg-gray-900 text-white">${i}</div>
+                <div class="absolute inset-[3px] z-20 flex items-center justify-center bg-black-900 text-white font-weight-normal">${i}</div>
             `;
             daysGrid.appendChild(dayElement);
         }

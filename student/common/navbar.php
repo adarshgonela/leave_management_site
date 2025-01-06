@@ -1,5 +1,5 @@
-<?php include_once('session.php'); ?>
-<header class="header">
+	<?php include_once('session.php'); ?>
+	<header class="header">
 			
 				<!-- Top Header Section -->
 				<div class="top-header-section">
@@ -18,10 +18,10 @@
 										<div class="col-lg-12 col-md-12 col-sm-12">
 											<div class="user-notification-block align-right d-inline-block">
 												<div class="top-nav-search">
-													<form>
+													<!-- <form>
 														<input type="text" class="form-control" placeholder="Search here">
 														<button class="btn" type="submit"><i class="fa fa-search"></i></button>
-													</form>
+													</form> -->
 												</div>
 											</div>
 											
@@ -41,6 +41,7 @@
 											<div class="user-info align-right dropdown d-inline-block header-dropdown">
 												<a href="javascript:void(0)" data-toggle="dropdown" class=" menu-style dropdown-toggle">
 													<div class="user-avatar d-inline-block">
+														
 														<img src="../assets/img/profiles/img-10.jpg" alt="user avatar" class="rounded-circle img-fluid" width="55">
 													</div>
 												</a>

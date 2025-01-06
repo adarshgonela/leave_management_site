@@ -186,9 +186,16 @@ while ($row = mysqli_fetch_assoc($result)) {
 												<i class="fa fa-building-o"></i>
 											</div>
 											<div class="card-right">
-												
-												<h4 class="card-title">Remaining leaves</h4>
-												<p class="card-text">30</p>
+											<?php
+												$sql = "SELECT COUNT(*) AS total_records
+FROM leaves";
+
+												$result = mysqli_query($conn, $sql);
+												$row = $result->fetch_assoc();
+
+												?>
+												<h4 class="card-title">Total leaves</h4>
+												<p class="card-text"><?php echo $row['total_records']; ?></p>
 											</div>
 										</div>
 									</div>

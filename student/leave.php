@@ -8,7 +8,6 @@ if (!isset($_SESSION['rollnumber'])) {
     header('Location: login.php');
     exit();
 }
-
 if (isset($_POST['leave'])) {
     // Sanitize roll number from session
     $studentrollnumber = mysqli_real_escape_string($conn, $_SESSION['rollnumber']);
@@ -25,6 +24,7 @@ if (isset($_POST['leave'])) {
     // Fetch user data
     $row = mysqli_fetch_assoc($result);
     $dept = $row['department']; // Get the department of the student
+    $noofleaves = $row['remainingleaves']; // Get current number of leaves of the student
     
     // Query to fetch HOD information from the same department
     $sql1 = "SELECT * FROM user WHERE role='hod' AND department='$dept'";
@@ -56,40 +56,55 @@ if (isset($_POST['leave'])) {
     $fromdate = mysqli_real_escape_string($conn, $_REQUEST['fromdate']);
 
 
-$startDate = new DateTime($fromdate);
-$endDate = new DateTime($todate);
+    $startDate = new DateTime($fromdate);
+    $endDate = new DateTime($todate);
 
-$interval = $startDate->diff($endDate);
+    $interval = $startDate->diff($endDate);
 
-$days = $interval->days;
+    $days = $interval->days;
 
-// echo $days;
     // Validate date range
     if (strtotime($fromdate) > strtotime($todate)) {
-        $error= "The from date cannot be after the to date.";
+        $error = "The from date cannot be after the to date.";
         exit();
     }
 
-	$date = DateTime::createFromFormat('Y-m-d', $fromdate);
-$fromdaterev = $date->format('d-m-Y');
-$date = DateTime::createFromFormat('Y-m-d', $todate);
-$todaterev = $date->format('d-m-Y');
+    $date = DateTime::createFromFormat('Y-m-d', $fromdate);
+    $fromdaterev = $date->format('d-m-Y');
+    $date = DateTime::createFromFormat('Y-m-d', $todate);
+    $todaterev = $date->format('d-m-Y');
+
+    // Check if the student has enough leave balance
+    if ($noofleaves < $days) {
+        $error = "You do not have enough leaves.";
+        exit();
+    }
 
     // Insert the leave request
-    $sql = "INSERT INTO leaves (studentrollnumber, leavetype, reason, todate, fromdate, hodrollnumber, classinchargerollnumber,status,applyingtime,noofdaystaken) 
-            VALUES ('$studentrollnumber', '$leavetype', '$reason', '$todaterev', '$fromdaterev', '$hodrollnumber', '$classinchargerollnumber','pending','$datee','$days')";
+    $sql = "INSERT INTO leaves (studentrollnumber, leavetype, reason, todate, fromdate, hodrollnumber, classinchargerollnumber, status, applyingtime, noofdaystaken) 
+            VALUES ('$studentrollnumber', '$leavetype', '$reason', '$todaterev', '$fromdaterev', '$hodrollnumber', '$classinchargerollnumber', 'pending', NOW(), '$days')";
 
     $result = mysqli_query($conn, $sql);
     
     if ($result) {
-        $error= "Leave applied successfully.";
-        // Optionally redirect to a confirmation page
-        header('Location: leave.php?msg=leave applied');
-        exit();
+        // Update the remaining leaves
+        $newnoofleaves = $noofleaves - $days;
+        $update_sql = "UPDATE user SET remainingleaves='$newnoofleaves' WHERE rollnumber='$studentrollnumber'";
+        $update_result = mysqli_query($conn, $update_sql);
+        
+        if ($update_result) {
+            $error = "Leave applied successfully. Remaining leaves: $newnoofleaves";
+            // Optionally redirect to a confirmation page
+            header('Location: leave.php?msg=leave applied');
+            exit();
+        } else {
+            $error = "Error updating the number of leaves. Please try again.";
+        }
     } else {
-        $error= "Error applying for leave. Please try again.";
-    }  
+        $error = "Error applying for leave. Please try again.";
+    }
 }
+
 
 ?>
 
@@ -188,7 +203,17 @@ $todaterev = $date->format('d-m-Y');
 												<div class="col-sm-6 leave-col">
 													<div class="form-group">
 														<label>Remaining Leaves</label>
-														<input type="text" class="form-control" placeholder="10"  disabled>
+
+														<?php
+$studentrollnumber = mysqli_real_escape_string($conn, $_SESSION['rollnumber']);
+$sql = "SELECT remainingleaves FROM user WHERE rollnumber = '$studentrollnumber'";
+$result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_assoc($result);
+    $remaining_leaves = $row['remainingleaves'];
+?>
+
+
+														<input type="text" class="form-control" value="<?php echo $remaining_leaves?>"  disabled>
 														<input type="hidden" name="leave">
 													</div>
 												</div>
@@ -266,7 +291,7 @@ $todaterev = $date->format('d-m-Y');
 															<!-- <th>Remaining Days</th> -->
 															<th>Reason</th>
 															<th>Status</th>
-															<th class="text-right">Action</th>
+															<!-- <th class="text-right">Action</th> -->
 
 														</tr>
 													</thead>
@@ -304,12 +329,12 @@ $todaterev = $date->format('d-m-Y');
 																<td><?php echo $todate ?></td>
 																<td><?php echo $reason ?></td>
 																<td><a href="javascript:void(0)" class="btn btn-theme ctm-border-radius text-white btn-sm">Approved</a></td>
-																<td class="text-right text-danger"><a href="javascript:void(0);" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#delete">
+																<!-- <td class="text-right text-danger"><a href="javascript:void(0);" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#delete">
 																		<span class="lnr lnr-trash"></span> Delete
 																	</a></td>
 																<td class="text-right text-danger"><a href="javascript:void(0);" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#delete">
 																		<span class="lnr lnr-trash"></span> Update
-																	</a></td>
+																	</a></td> -->
 															</tr>
 														<?php  }  ?>
 													</tbody>

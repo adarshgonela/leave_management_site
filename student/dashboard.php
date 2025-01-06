@@ -139,7 +139,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 												<i class="fa fa-suitcase" aria-hidden="true"></i>
 											</div>
 											<div class="card-right">
-											<?php
+												<?php
 												$sql = "SELECT COUNT(*) AS status
 												FROM leaves l
 												JOIN user u ON l.studentrollnumber = u.rollnumber
@@ -165,7 +165,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 												<i class="fa fa-money" aria-hidden="true"></i>
 											</div>
 											<div class="card-right">
-											<?php
+												<?php
 												$sql = "SELECT COUNT(*) AS status
 												FROM leaves l
 												JOIN user u ON l.studentrollnumber = u.rollnumber
@@ -191,9 +191,24 @@ while ($row = mysqli_fetch_assoc($result)) {
 												<i class="fa fa-building-o"></i>
 											</div>
 											<div class="card-right">
-												
+												<?php
+												// Assuming you already have the session started and the database connection established
+
+												// Get the roll number of the logged-in student
+												$studentrollnumber = mysqli_real_escape_string($conn, $_SESSION['rollnumber']);
+
+												// SQL query to fetch the remainingleaves for the student
+												$sql = "SELECT remainingleaves FROM user WHERE rollnumber = '$studentrollnumber'";
+
+												// Execute the query
+												$result = mysqli_query($conn, $sql);
+
+												$row = mysqli_fetch_assoc($result);
+												$remainingleaves = $row['remainingleaves'];
+												?>
+
 												<h4 class="card-title">Remaining leaves</h4>
-												<p class="card-text">30</p>
+												<p class="card-text"><?php echo $row['remainingleaves']?></p>
 											</div>
 										</div>
 									</div>

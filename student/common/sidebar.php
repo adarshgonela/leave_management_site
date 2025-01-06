@@ -12,9 +12,9 @@
 													<a href="leave.php" class="text-dark p-4 ctm-border-right ctm-border-left"><span class="lnr lnr-briefcase pr-0 pb-lg-2 font-23"></span><span class="">Leave</span></a>											
 												</div>
 												
-												<div class="col-6 align-items-center shadow-none text-center">												
+												<!-- <div class="col-6 align-items-center shadow-none text-center">												
 													<a href="reports.html" class="text-dark p-4 ctm-border-right ctm-border-left"><span class="lnr lnr-rocket pr-0 pb-lg-2 font-23"></span><span class="">Reports</span></a>												
-												</div>
+												</div> -->
 												
 												<div class="col-6 align-items-center shadow-none text-center">											
 													<a href="profile.php" class="text-dark p-4 last-slider-btn ctm-border-right"><span class="lnr lnr-user pr-0 pb-lg-2 font-23"></span><span class="">Profile</span></a>												

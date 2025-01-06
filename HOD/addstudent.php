@@ -23,8 +23,8 @@ if (isset($_POST['student'])) {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
         // Prepare the SQL query
-        $sql = "INSERT INTO user (email, password, name, rollnumber, role, department, yearsem,totalleaves) 
-                VALUES ('$email', '$hashed_password', '$name', '$rollnumber', '$role', '$department', '$yearsem','$totalleaves')";
+        $sql = "INSERT INTO user (email, password, name, rollnumber, role, department, yearsem,totalleaves,remainingleaves) 
+                VALUES ('$email', '$hashed_password', '$name', '$rollnumber', '$role', '$department', '$yearsem','$totalleaves','$totalleaves')";
 
         // Execute the query
         if ($conn->query($sql) === TRUE) {

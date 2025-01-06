@@ -13,7 +13,7 @@
 												</div>
 												
 												<div class="col-6 align-items-center shadow-none text-center">												
-													<a href="reports.html" class="text-dark p-4 ctm-border-right ctm-border-left"><span class="lnr lnr-rocket pr-0 pb-lg-2 font-23"></span><span class="">Reports</span></a>												
+													<a href="report.php" class="text-dark p-4 ctm-border-right ctm-border-left"><span class="lnr lnr-rocket pr-0 pb-lg-2 font-23"></span><span class="">Reports</span></a>												
 												</div>
 												
 												<div class="col-6 align-items-center shadow-none text-center">											

@@ -2,85 +2,68 @@
 session_start();
 include_once('../db.php');
 
+$rollnumber = $_SESSION['rollnumber'];
+$sql = "SELECT * FROM user where rollnumber='$rollnumber'";
+$result = mysqli_query($conn, $sql);
 
-$rollnumber=$_SESSION['rollnumber'];
-	$sql = "SELECT * FROM user where rollnumber='$rollnumber'";
-	$result = mysqli_query($conn, $sql);
-
-	$row = mysqli_fetch_assoc($result);
-		$email = $row['email'];
-		$name = $row['name'];
-		$phno = $row['phno'];
-		// $rollnumber = $row['rollnumber'];
-		$gender = $row['gender'];
-		$address = $row['address'];
-		$id = $row['id'];
-		$image=$row['profileimg'];
+$row = mysqli_fetch_assoc($result);
+$email = $row['email'];
+$name = $row['name'];
+$phno = $row['phno'];
+$gender = $row['gender'];
+$address = $row['address'];
+$id = $row['id'];
+$image = $row['profileimg'];
+$department = $row['department'];
+$yearsem = $row['yearsem'];
 
 if (isset($_POST['update'])) {
-	$new_email = $_REQUEST['email'];
+    $new_email = $_REQUEST['email'];
     $new_name = $_REQUEST['name'];
     $new_phno = $_REQUEST['phno'];
     $new_rollnumber = $_REQUEST['rollnumber'];
     $new_gender = $_REQUEST['gender'];
     $new_address = $_REQUEST['address'];
+    $new_department = $_REQUEST['department'];
+    $new_yearsem = $_REQUEST['yearsem'];
     $user_id = $_REQUEST['id'];
 
-	// echo $new_email;
-	// echo $new_name;
-	// echo $new_address;
-	// echo $new_gender;
+    $profileimg = $_FILES["profileimg"]["name"];
+    $profileimg_tmp = $_FILES["profileimg"]["tmp_name"];
 
+    // Optionally, you can move the uploaded file to a directory for saving:
+    if ($profileimg_tmp) {
+        $profileimg = "uploads/" . basename($profileimg);
+        move_uploaded_file($profileimg_tmp, $profileimg);
+    }
 
-	
-$profileimg = $_FILES["profileimg"]["name"];
-$profileimg = $_FILES["profileimg"]["tmp_name"];
+    // Update query with the new fields (department and yearsem)
+    $sql = "UPDATE user SET email = ?, name = ?, phno = ?, rollnumber = ?, gender = ?, address = ?, department = ?, yearsem = ?, profileimg = ? WHERE id = ?";
 
+    // Prepare the statement
+    $stmt = $conn->prepare($sql);
 
+    // Check if the statement was prepared successfully
+    if ($stmt === false) {
+        die("Error preparing the statement: " . $conn->error);
+    }
 
-	$sql = "UPDATE user SET email = ?, name = ?, phno = ?, rollnumber = ?, gender = ?, address = ?,profileimg=?  WHERE id = ?";
+    // Bind the parameters to the statement
+    $stmt->bind_param("sssssssssi", $new_email, $new_name, $new_phno, $new_rollnumber, $new_gender, $new_address, $new_department, $new_yearsem, $profileimg, $user_id);
 
-	// Prepare the statement
-	$stmt = $conn->prepare($sql);
-	
-	// Check if the statement was prepared successfully
-	if ($stmt === false) {
-		die("Error preparing the statement: " . $conn->error);
-	}
-	
-	// Bind the parameters to the statement
-	$stmt->bind_param("sssssssi", $new_email, $new_name, $new_phno, $new_rollnumber, $new_gender, $new_address, $profileimg,$user_id);
-	
-	// Execute the query
-	if ($stmt->execute()) {
-		echo "Record updated successfully";
-	} else {
-		echo "Error updating record: " . $stmt->error;
-	}
-	
-	// Close the statement and connection
-	$stmt->close();
-	// $conn->close();
-		
+    // Execute the query
+    if ($stmt->execute()) {
+        echo "Record updated successfully";
+    } else {
+        echo "Error updating record: " . $stmt->error;
+    }
 
-	// $rollnumber=$_SESSION['rollnumber'];
-	// $sql = "SELECT * FROM user where rollnumber='$rollnumber'";
-	// $result = mysqli_query($conn, $sql);
-
-	// $row = mysqli_fetch_assoc($result);
-	// 	$email = $row['email'];
-	// 	$name = $row['name'];
-	// 	$phno = $row['phno'];
-	// 	// $rollnumber = $row['rollnumber'];
-	// 	$gender = $row['gender'];
-	// 	$address = $row['address'];
-	// 	$id = $row['id'];
-
-    
-	// header("location: profile.php");
-} 
+    // Close the statement and connection
+    $stmt->close();
+}
 
 ?>
+
 
 	<!DOCTYPE html>
 	<html lang="en">
@@ -206,19 +189,18 @@ $profileimg = $_FILES["profileimg"]["tmp_name"];
 																Gender
 																<span class="text-danger">*</span>
 															</label>
-															<input type="text" class="form-control" value="<?php echo $gender ?>" name="gender" >
 
-															<!-- <select class="form-control select">
-																<option value="">Select Gender</option>
+															<select class="form-control select" name="gender" value="<?php echo $gender ?>">
+																<option value=""><?php echo $gender ?></option>
 																<option value="Male">Male</option>
 																<option value="Female">Female</option>
-															</select> -->
+															</select>
 														</div>
 													</div>
 													<div class="col-sm-6 leave-col">
 														<div class="form-group">
 															<label>Phone Number</label>
-															<input type="number" class="form-control" value="<?php echo $phno ?>" name="phno">
+															<input type="text" class="form-control" value="<?php echo $phno ?>" name="phno">
 														</div>
 													</div>
 													<div class="col-sm-6 leave-col">
@@ -227,9 +209,49 @@ $profileimg = $_FILES["profileimg"]["tmp_name"];
 															<input type="text" class="form-control" value="<?php echo $rollnumber ?>" name="rollnumber">
 														</div>
 													</div>
+													<div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>
+                                                            Department
+                                                            <span class="text-danger">*</span>
+                                                        </label>
+                                                        <select class="form-control select" name="department">
+                                                            <option><?php echo $department; ?></option>
+                                                            <option value="ECE">ECE</option>
+                                                            <option value="CSE">CSE</option>
+                                                            <option value="CIVIL">CIVIL</option>
+                                                            <option value="MECH">MECH</option>
+                                                            <option value="CSD">CSD</option>
+                                                            <option value="AIML">AIML</option>
+
+
+                                                        </select>
+                                                    </div>
+                                                </div>
 												</div>
 
 
+											
+												
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>
+                                                            year and sem
+                                                            <span class="text-danger">*</span>
+                                                        </label>
+                                                        <select class="form-control select" name="yearsem">
+                                                            <option><?php echo $yearsem; ?></option>
+                                                            <option value="1-1">1-1</option>
+                                                            <option value="1-2">1-2</option>
+                                                            <option value="2-1">2-1</option>
+                                                            <option value="2-2">2-2</option>
+                                                            <option value="3-1">3-1</option>
+                                                            <option value="3-2">3-2</option>
+                                                            <option value="4-1">4-1</option>
+                                                            <option value="4-2">4-2</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
 												<div class="row">
 													<div class="col-sm-12">
 														<div class="form-group mb-0">
@@ -243,6 +265,7 @@ $profileimg = $_FILES["profileimg"]["tmp_name"];
 													<button class="btn btn-theme button-1 text-white ctm-border-radius mt-4">Update Details</button>
 													<a href="profile.php" class="btn btn-danger text-white ctm-border-radius mt-4" name="cancel">Cancel</a>
 												</div>
+												
 											</form>
 										</div>
 									</div>
