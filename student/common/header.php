@@ -1,4 +1,4 @@
-    <link rel="icon" type="image/x-icon" href="../assets/img/favicon.png">
+    <link rel="icon" type="image/x-icon" href="../assets/logoelms.png">
 		
 		<!-- Bootstrap CSS -->
 		<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
