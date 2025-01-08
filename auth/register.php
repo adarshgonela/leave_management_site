@@ -1,64 +1,58 @@
 <?php
 $error = "";
+$success_message = "";
 include_once('../db.php');
 
 if (isset($_POST['register'])) { 
-    // Sanitize and validate input
-    $name = mysqli_real_escape_string($conn, trim($_REQUEST['name']));
-    $email = mysqli_real_escape_string($conn, trim($_REQUEST['email']));
-    $rollnumber = mysqli_real_escape_string($conn, trim($_REQUEST['rollnumber']));  // Sanitize rollnumber
+    // Get and sanitize input
+    $name = trim($_REQUEST['name']);
+    $email = trim($_REQUEST['email']);
+    $rollnumber = trim($_REQUEST['rollnumber']);
     $password = $_REQUEST['password'];
     $confirm_password = $_REQUEST['confirm_password'];
 
     // Validate form fields
     if (empty($name) || empty($email) || empty($rollnumber) || empty($password) || empty($confirm_password)) {
-        $error = "All fields are required!";
+        $error_message = "All fields are required!";
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $error = "Invalid email format!";
+        $error_message = "Invalid email format!";
     } elseif ($password !== $confirm_password) {
-        $error = "Passwords do not match!";
+        $error_message = "Passwords do not match!";
     } elseif (strlen($password) < 8) {
-        $error = "Password must be at least 8 characters long!";
+        $error_message = "Password must be at least 8 characters long!";
     } else {
         // Check if the email or roll number already exists in the database
         $stmt = $conn->prepare("SELECT * FROM user WHERE email = ? OR rollnumber = ?");
-        $stmt->bind_param("ss", $email, $rollnumber);  // Bind the email and rollnumber parameters
+        $stmt->bind_param("ss", $email, $rollnumber);
         $stmt->execute();
         $stmt->store_result();
 
         if ($stmt->num_rows > 0) {
-            // If either email or rollnumber exists, set an appropriate error
-            $error = "Email or Roll Number is already registered!";
+            // If email or roll number exists
+            $error_message = "Email or Roll Number is already registered!";
         } else {
-            // Hash the password before inserting
+            // Hash the password
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-            // Use prepared statements to insert the new user data
-            $stmt = $conn->prepare("INSERT INTO user (name, email, rollnumber, password) VALUES (?, ?, ?, ?)");
-            $stmt->bind_param("ssss", $name, $email, $rollnumber, $hashed_password);  // Bind parameters
+            // Prepare and execute the insert statement
+            $stmt = $conn->prepare("INSERT INTO user (name, email, rollnumber, password, role) VALUES (?, ?, ?, ?, ?)");
+            $role = 'student'; // Assuming role is always 'student' for new users
+            $stmt->bind_param("sssss", $name, $email, $rollnumber, $hashed_password, $role);
 
-            // Execute the query and check if it was successful
             if ($stmt->execute()) {
-                $error = "New record created successfully";
+                // Success
+                $success_message = "New record created successfully!";
             } else {
-                // Log the error or display a generic message
+                // Error inserting record
                 error_log("Error inserting record: " . $stmt->error);
-                $error = "Something went wrong. Please try again later.";
+                $error_message = "Something went wrong. Please try again later.";
             }
-
-            // Close the prepared statement
-            $stmt->close();
         }
-
-        // Close the first prepared statement
-        $stmt->close();
     }
 }
 
-// Close the database connection
 mysqli_close($conn);
 ?>
-
 
 
 

@@ -134,7 +134,7 @@ $error = "";
 																		<select class="btn btn-theme ctm-border-radius text-white btn-sm" name="status">
 																			<option value="<?php echo $status; ?>"><?php echo $status; ?></option>
 																			<option value="pending">Pending</option>
-																			<option value="approved">Approved</option>
+																			<option value="Approved">Approved</option>
 																			<option value="rejected">Rejected</option>
 																		</select>
 																	</td>

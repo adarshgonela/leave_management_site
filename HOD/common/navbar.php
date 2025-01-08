@@ -1,4 +1,10 @@
 <?php include_once('session.php'); ?>
+<?php
+	// include_once('../../db.php');
+	$sql = "SELECT profileimg FROM user WHERE rollnumber='$rollnumber'";
+	$result = mysqli_query($conn, $sql);
+	$row = $result->fetch_assoc();
+	?>
 <header class="header">
 			
 				<!-- Top Header Section -->
@@ -41,7 +47,7 @@
 											<div class="user-info align-right dropdown d-inline-block header-dropdown">
 												<a href="javascript:void(0)" data-toggle="dropdown" class=" menu-style dropdown-toggle">
 													<div class="user-avatar d-inline-block">
-														<img src="../assets/img/profiles/img-10.jpg" alt="user avatar" class="rounded-circle img-fluid" width="55">
+														<img src="data:image/jpeg;base64,<?php echo base64_encode($row['profileimg']); ?>"  alt="user avatar" class="rounded-circle img-fluid" width="55">
 													</div>
 												</a>
 												

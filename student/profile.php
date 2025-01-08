@@ -13,9 +13,11 @@ $phno = $row['phno'];
 $gender = $row['gender'];
 $address = $row['address'];
 $id = $row['id'];
-$image = $row['profileimg'];
 $department = $row['department'];
 $yearsem = $row['yearsem'];
+$image = $row['profileimg'];
+
+$base64Image = base64_encode($image);
 
 if (isset($_POST['update'])) {
     $new_email = $_REQUEST['email'];
@@ -28,14 +30,9 @@ if (isset($_POST['update'])) {
     $new_yearsem = $_REQUEST['yearsem'];
     $user_id = $_REQUEST['id'];
 
-    $profileimg = $_FILES["profileimg"]["name"];
-    $profileimg_tmp = $_FILES["profileimg"]["tmp_name"];
-
-    // Optionally, you can move the uploaded file to a directory for saving:
-    if ($profileimg_tmp) {
-        $profileimg = "uploads/" . basename($profileimg);
-        move_uploaded_file($profileimg_tmp, $profileimg);
-    }
+	$imageName = $_FILES['image']['name'];
+	$imageTmpName = $_FILES['image']['tmp_name'];
+	$imageData = file_get_contents($imageTmpName);
 
     // Update query with the new fields (department and yearsem)
     $sql = "UPDATE user SET email = ?, name = ?, phno = ?, rollnumber = ?, gender = ?, address = ?, department = ?, yearsem = ?, profileimg = ? WHERE id = ?";
@@ -49,7 +46,7 @@ if (isset($_POST['update'])) {
     }
 
     // Bind the parameters to the statement
-    $stmt->bind_param("sssssssssi", $new_email, $new_name, $new_phno, $new_rollnumber, $new_gender, $new_address, $new_department, $new_yearsem, $profileimg, $user_id);
+    $stmt->bind_param("sssssssssi", $new_email, $new_name, $new_phno, $new_rollnumber, $new_gender, $new_address, $new_department, $new_yearsem, $imageData, $user_id);
 
     // Execute the query
     if ($stmt->execute()) {
@@ -89,18 +86,7 @@ if (isset($_POST['update'])) {
 		<!-- Inner wrapper -->
 		<div class="inner-wrapper">
 
-			<!-- Loader -->
-			<!-- <div id="loader-wrapper">
-				
-				<div class="loader">
-				  <div class="dot"></div>
-				  <div class="dot"></div>
-				  <div class="dot"></div>
-				  <div class="dot"></div>
-				  <div class="dot"></div>
-				</div>
-			</div> -->
-
+			
 			<!-- Header -->
 			<?php include_once('common/navbar.php');  ?>
 			<!-- /Header -->
@@ -152,22 +138,39 @@ if (isset($_POST['update'])) {
 										</div>
 										<div class="card-body">
 											<form action="profile.php?id=<?php echo $id ?>" method="post" enctype="multipart/form-data">
-											<div class="row">
-													<div class="col-12">
+										
+										
+										
+										
+										
+											<!-- <img src="data:image/jpeg;base64,<?php echo $base64Image; ?>" alt="image" width="300"> -->
+											<!-- <img src="../assets/img/profiles/img-15jpeg.jpeg" alt="Uploaded Image" width="300"> -->
+
+											<!-- <input type="file" name="image" id="image" required> -->
+    
+
+
+
+											<div class="col-12">
 														<div class="avatar-upload">
 															<div class="avatar-edit">
-																<input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
+																<input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" name="image"/>
 																<label for="imageUpload"></label>
 															</div>
 															<div class="avatar-preview">
 																<div id="imagePreview">
-																	
+																<img src="data:image/jpeg;base64,<?php echo $base64Image; ?>" alt="image" width="300">
+										
 																</div>
 															</div>
 														</div>
 													</div>
-													
-												</div>
+
+
+
+
+											
+
 												<div class="row">
 
 													<div class="col-sm-6 leave-col">
