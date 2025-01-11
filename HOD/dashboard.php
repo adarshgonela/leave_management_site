@@ -87,9 +87,9 @@ while ($row = mysqli_fetch_assoc($result)) {
 										</div>
 										<div class="user-details">
 											<h4 class="font-weight-bold">
-												Welcome <?php echo $name; ?>
+												 <?php echo $name; ?>
 											</h4>
-											<p><?php echo $datee ?></p>
+											<p><?php echo $rollnumber; ?></p>
 										</div>
 									</div>
 								</div>
@@ -132,7 +132,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 												$row = $result->fetch_assoc();
 
 												?>
-												<h4 class="card-title"><a href="leave.php">Pending leaves</a></h4>
+												<h4 class="card-title"><a href="leave.php?status='pending'">Pending leaves</a></h4>
 												<p class="card-text"><?php echo $row['status']; ?></p>
 											</div>
 										</div>

@@ -81,8 +81,8 @@ while ($row = mysqli_fetch_assoc($result)) {
 											<img src="data:image/jpeg;base64,<?php echo base64_encode($row['profileimg']); ?>" alt="User Avatar" class="img-fluid rounded-circle" width="100">
 										</div>
 										<div class="user-details">
-											<h4 style="font-weight: 500;"><b>Welcome <?php echo $name ?></b></h4>
-											<p><?php echo $datee; ?></p>
+											<h4 style="font-weight: 500;"><b> <?php echo $name ?></b></h4>
+											<p><?php echo $rollnumber; ?></p>
 										</div>
 									</div>
 								</div>

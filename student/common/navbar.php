@@ -1,8 +1,8 @@
-	<?php include_once('session.php');
-	// session_start();
-	?>
 	<?php
-	// include_once('../../db.php');
+	include_once('session.php');
+	// session_start();
+
+	include_once('../db.php');
 	$sql = "SELECT profileimg FROM user WHERE rollnumber='$rollnumber'";
 	$result = mysqli_query($conn, $sql);
 	$row = $result->fetch_assoc();
@@ -51,7 +51,30 @@
 											<div class="user-avatar d-inline-block">
 
 												<img src="data:image/jpeg;base64,<?php echo base64_encode($row['profileimg']); ?>" alt="user avatar" class="rounded-circle img-fluid" width="55">
-												<span class="badge badge-danger position-absolute" style="top: 5px; right: 5px;">3</span>
+
+												<?php
+												$sql1 = "SELECT COUNT(*) AS count
+												FROM notifications
+												WHERE torollnumber = '$rollnumber'
+												AND DATE(notificationtime) = CURDATE()";
+
+												$result1 = mysqli_query($conn, $sql1);
+
+												$row1 = $result1->fetch_assoc();
+												$count = $row1['count'];
+
+												?>
+
+												<!-- Display the count in a badge -->
+												<span class="badge badge-danger position-absolute" style="top: 5px; right: 5px;">
+													<?php
+													if ($count == 0) {
+														echo " ";
+													} else {
+														echo $count;
+													}
+													?>
+												</span>
 
 											</div>
 										</a>

@@ -19,10 +19,9 @@ if (isset($_SESSION['rollnumber']) && isset($_REQUEST['status'])) {
         // Bind parameters to the prepared statement
         mysqli_stmt_bind_param($stmt, "ss", $updatedstatus, $rollnumber);
 
-        // Execute the statement
-        if (mysqli_stmt_execute($stmt)) {
             // If the status is "rejected", update the remaining leaves in the user table
             if ($updatedstatus == 'rejected') {
+                echo "heyyyyyyyy";
                 // Get the current status and the number of days taken from the leave request
                 $getLeaveQuery = "SELECT status, noofdaystaken FROM leaves WHERE studentrollnumber = ?";
 
@@ -34,7 +33,7 @@ if (isset($_SESSION['rollnumber']) && isset($_REQUEST['status'])) {
                     mysqli_stmt_close($leaveStmt);
 
                     // Check if the status was not already 'rejected'
-                    if ($currentStatus != 'rejected' && isset($noofdaystaken)) {
+                    if ($currentStatus != 'rejected') {
                         // Update the user's remaining leaves only if the status wasn't already 'rejected'
                         $updateLeavesQuery = "UPDATE user SET remainingleaves = remainingleaves + ? WHERE rollnumber = ?";
 
@@ -67,9 +66,7 @@ if (isset($_SESSION['rollnumber']) && isset($_REQUEST['status'])) {
             }
 
             header("location: ../leave.php?msg=statusupdatedsuccessfully");
-        } else {
-            echo "Error updating status: " . mysqli_error($conn);
-        }
+        
 
         // Close the prepared statement
         mysqli_stmt_close($stmt);
