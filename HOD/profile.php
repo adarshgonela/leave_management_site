@@ -25,15 +25,14 @@ if (isset($_POST['update'])) {
     $new_address = $_REQUEST['address'];
     $user_id = $_REQUEST['id'];
 
-    // Handle image upload
-    if ($_FILES['image']['error'] == 0) {
-        $imageTmpName = $_FILES['image']['tmp_name'];
-        $imageData = file_get_contents($imageTmpName);
-    } else {
-        // Keep the old image if no new image is uploaded
-        $imageData = $image; 
-    }
-
+  // Check if an image file has been uploaded
+  if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
+	$imageTmpName = $_FILES['image']['tmp_name'];
+	$imageData = file_get_contents($imageTmpName);
+} else {
+	// Handle the case where no file is uploaded (use existing image or set $imageData to null)
+	$imageData = null;  // Or you can leave it empty and rely on existing image in database
+}
     // Update query with the new fields
     $sql = "UPDATE user SET email = ?, name = ?, phno = ?, rollnumber = ?, gender = ?, address = ?, profileimg = ? WHERE id = ?";
 
@@ -123,9 +122,7 @@ if (isset($_POST['update'])) {
                                                         <label for="imageUpload"></label>
                                                     </div>
                                                     <div class="avatar-preview">
-                                                        <div id="imagePreview">
-                                                            <img src="data:image/jpeg;base64,<?php echo base64_encode($image); ?>" alt="image" width="300">
-                                                        </div>
+                                                            <img src="data:image/jpeg;base64,<?php echo base64_encode($image); ?>" alt="No Profile Img" >
                                                     </div>
                                                 </div>
                                             </div>

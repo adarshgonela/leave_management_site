@@ -48,7 +48,7 @@ $row = $result->fetch_assoc();
 									<a href="javascript:void(0)" data-toggle="dropdown" class=" menu-style dropdown-toggle">
 										<div class="user-avatar d-inline-block">
 
-											<img src="data:image/jpeg;base64,<?php echo base64_encode($row['profileimg']); ?>" alt="user avatar" class="rounded-circle img-fluid" width="55">
+											<img src="data:image/jpeg;base64,<?php echo base64_encode($row['profileimg']); ?>" alt="No Profile Img" class="rounded-circle img-fluid" width="55">
 
 											<?php
 											$sql1 = "SELECT COUNT(*) AS count
@@ -125,7 +125,7 @@ $row = $result->fetch_assoc();
 							<div class="user-info align-center bg-theme text-center">
 								<a href="javascript:void(0)" class="d-block menu-style text-white">
 									<div class="user-avatar d-inline-block mr-3">
-										<img src="../assets/img/profiles/img-6.jpg" alt="user avatar" class="rounded-circle img-fluid" width="55">
+										<img src="../assets/img/profiles/img-6.jpg" alt="No Profile Img" class="rounded-circle img-fluid" width="55">
 									</div>
 								</a>
 							</div>

@@ -22,6 +22,9 @@
 												<div class="col-6 align-items-center shadow-none text-center">											
 													<a href="addstudent.php" class="text-dark p-4 last-slider-btn ctm-border-right"><span class="lnr lnr-user pr-0 pb-lg-2 font-23"></span><span class="">Add Student</span></a>												
 												</div>
+												<div class="col-6 align-items-center shadow-none text-center">											
+													<a href="notification.php" class="text-dark p-4 last-slider-btn ctm-border-right"><span class="lnr lnr-user pr-0 pb-lg-2 font-23"></span><span class="">Notification</span></a>												
+												</div>
 											</div>
 										</div>
 									</div>

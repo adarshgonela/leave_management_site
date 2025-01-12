@@ -80,7 +80,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 											?>
 										
 										<img src="data:image/jpeg;base64,<?php echo base64_encode($row['profileimg']); ?>"
-											alt="User Avatar"
+											alt="No Profile Img"
 											 class="img-fluid rounded-circle"
 											  width="100"
 											  />
@@ -132,7 +132,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 												$row = $result->fetch_assoc();
 
 												?>
-												<h4 class="card-title"><a href="leave.php?status='pending'">Pending leaves</a></h4>
+												<h4 class="card-title"><a href="allleaves.php?status=pending">Pending leaves</a></h4>
 												<p class="card-text"><?php echo $row['status']; ?></p>
 											</div>
 										</div>
@@ -155,7 +155,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 												$row = $result->fetch_assoc();
 
 												?>
-												<h4 class="card-title">Approved Leaves</h4>
+												<h4 class="card-title"><a href="allleaves.php?status=approved">Approved Leaves</a></h4>
 												<p class="card-text"><?php echo $row['status']; ?></p>
 											</div>
 										</div>
@@ -177,7 +177,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 												$row = $result->fetch_assoc();
 
 												?>
-												<h4 class="card-title">Rejected Leaves</h4>
+												<h4 class="card-title"><a href="allleaves.php?status=rejected">Rejected Leaves</a></h4>
 												<p class="card-text"><?php echo $row['status']; ?></p>
 											</div>
 										</div>

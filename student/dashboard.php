@@ -78,7 +78,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 											$row = $result->fetch_assoc();
 											?>
 
-											<img src="data:image/jpeg;base64,<?php echo base64_encode($row['profileimg']); ?>" alt="User Avatar" class="img-fluid rounded-circle" width="100">
+											<img src="data:image/jpeg;base64,<?php echo base64_encode($row['profileimg']); ?>" alt="No Profile Img" class="img-fluid rounded-circle" width="100">
 										</div>
 										<div class="user-details">
 											<h4 style="font-weight: 500;"><b> <?php echo $name ?></b></h4>
@@ -117,7 +117,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 											<div class="card-right">
 
 												<?php
-												$sql = "SELECT COUNT(*) AS status
+												$sql = "SELECT COUNT(*) AS count
 												FROM leaves l
 												JOIN user u ON l.studentrollnumber = u.rollnumber
 												WHERE l.status = 'pending'
@@ -129,8 +129,8 @@ while ($row = mysqli_fetch_assoc($result)) {
 												$row = $result->fetch_assoc();
 
 												?>
-												<h4 class="card-title">Pending leaves</h4>
-												<p class="card-text"><?php echo $row['status']; ?></p>
+												<h4 class="card-title"><a href="allleaves.php?status=pending">Pending leaves</a></h4>
+												<p class="card-text"><?php echo $row['count']; ?></p>
 											</div>
 										</div>
 									</div>
@@ -144,7 +144,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 											</div>
 											<div class="card-right">
 												<?php
-												$sql = "SELECT COUNT(*) AS status
+												$sql = "SELECT COUNT(*) AS count
 												FROM leaves l
 												JOIN user u ON l.studentrollnumber = u.rollnumber
 												WHERE l.status = 'approved'
@@ -156,8 +156,8 @@ while ($row = mysqli_fetch_assoc($result)) {
 												$row = $result->fetch_assoc();
 
 												?>
-												<h4 class="card-title">Approved Leaves</h4>
-												<p class="card-text"><?php echo $row['status']; ?></p>
+												<h4 class="card-title"><a href="allleaves.php?status=approved">Approved Leaves</a></h4>
+												<p class="card-text"><?php echo $row['count']; ?></p>
 											</div>
 										</div>
 									</div>
@@ -170,7 +170,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 											</div>
 											<div class="card-right">
 												<?php
-												$sql = "SELECT COUNT(*) AS status
+												$sql = "SELECT COUNT(*) AS count
 												FROM leaves l
 												JOIN user u ON l.studentrollnumber = u.rollnumber
 												WHERE l.status = 'rejected'
@@ -182,8 +182,8 @@ while ($row = mysqli_fetch_assoc($result)) {
 												$row = $result->fetch_assoc();
 
 												?>
-												<h4 class="card-title">Rejected Leaves</h4>
-												<p class="card-text"><?php echo $row['status']; ?></p>
+												<h4 class="card-title"><a href="allleaves.php?status=rejected">Rejected Leaves</a></h4>
+												<p class="card-text"><?php echo $row['count']; ?></p>
 											</div>
 										</div>
 									</div>

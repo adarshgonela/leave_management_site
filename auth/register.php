@@ -36,9 +36,9 @@ if (isset($_POST['register'])) {
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
             // Prepare and execute the insert statement
-            $stmt = $conn->prepare("INSERT INTO user (name, email, rollnumber, password, role,remainingleaves) VALUES (?, ?, ?, ?, ?,?)");
+            $stmt = $conn->prepare("INSERT INTO user (name, email, rollnumber, password, role,remainingleaves,totalleaves) VALUES (?, ?, ?, ?, ?,?,?)");
             $role = 'student'; // Assuming role is always 'student' for new users
-            $stmt->bind_param("sssss", $name, $email, $rollnumber, $hashed_password, $role,$totalleaves);
+            $stmt->bind_param("sssssss", $name, $email, $rollnumber, $hashed_password, $role,$totalleaves,$totalleaves);
 
             if ($stmt->execute()) {
                 // Success

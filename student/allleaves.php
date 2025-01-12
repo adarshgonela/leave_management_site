@@ -73,6 +73,8 @@ $status=$_GET['status'];
 									<div class="card-body">
 										<div class="employee-office-table">
 											<div class="table-responsive">
+
+
 												<table class="table custom-table mb-0">
 													<thead>
 														<tr>
@@ -83,7 +85,7 @@ $status=$_GET['status'];
 															<th>Days</th>
 															<th>Reason</th>
 															<th>Status</th>
-															<th class="text-right">Action</th>
+															<!-- <th class="text-right">Action</th> -->
 															<th>Applying Time</th>
 														</tr>
 													</thead>
@@ -95,13 +97,13 @@ $status=$_GET['status'];
 														$offset = ($page - 1) * $limit;
 
 														// Get total number of leaves
-														$result = $conn->query("SELECT COUNT(*) AS total FROM leaves WHERE status = '$status'");
+														$result = $conn->query("SELECT COUNT(*) AS total FROM leaves WHERE status = '$status' AND studentrollnumber='$rollnumber'");
 														$row = $result->fetch_assoc();
 														$total_rows = $row['total'];
 														$total_pages = ceil($total_rows / $limit); // For example: 50/10 = 5 pages
 
 														// Fetch leaves data with pagination
-														$sql = "SELECT * FROM leaves WHERE status = '$status' ORDER BY id DESC LIMIT $offset, $limit";
+														$sql = "SELECT * FROM leaves WHERE status = '$status'AND studentrollnumber='$rollnumber' ORDER BY id DESC LIMIT $offset, $limit";
 
 
 														$result = mysqli_query($conn, $sql);
@@ -138,11 +140,11 @@ $status=$_GET['status'];
 																			<option value="rejected">Rejected</option>
 																		</select>
 																	</td>
-																	<td class="text-right text-danger">
+																	<!-- <td class="text-right text-danger">
 																		<button type="submit" class="btn btn-sm btn-outline-danger">
 																			<span class="lnr lnr-trash"></span> Update
 																		</button>
-																	</td>
+																	</td> -->
 																</form>
 																<td><?php echo $time; ?></td>
 															</tr>

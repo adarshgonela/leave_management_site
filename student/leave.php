@@ -2,7 +2,7 @@
 session_start();
 include_once('../db.php');
 include_once('../auth/conn.php');
-
+include_once('title.php');
 $error = "";
 // Check if the user is logged in
 if (!isset($_SESSION['rollnumber'])) {
@@ -23,62 +23,99 @@ if (!$result) {
 $row = mysqli_fetch_assoc($result);
 $remaining_leaves = $row['remainingleaves'];
 $dept = $row['department'];
-$yearsem=$row['yearsem'];
-$remaining_leave1=$row['remainingleaves'];
+$yearsem = $row['yearsem'];
+$remaining_leave1 = $row['remainingleaves'];
+$attendencedb = $row['attendence'];
 
-if (isset($_POST['leave'])) {
-    $leavetype = mysqli_real_escape_string($conn, $_REQUEST['leavetype']);
-    $reason = mysqli_real_escape_string($conn, $_REQUEST['reason']);
-    $todate = mysqli_real_escape_string($conn, $_REQUEST['todate']);
-    $fromdate = mysqli_real_escape_string($conn, $_REQUEST['fromdate']);
+if ($attendencedb <= $attendencelimit) {//60< 75
+    $error = " your Atttendence is below 75% ,you cannot apply leaves";
+} else {
+   
 
-    // Calculate the number of days
-    $startDate = new DateTime($fromdate);
-    $endDate = new DateTime($todate);
-    $interval = $startDate->diff($endDate);
-    $days = $interval->days;
-
-    // Validate date range
-    if (strtotime($fromdate) > strtotime($todate)) {
-        $error = "The from date cannot be after the to date.";
+    if (empty($dept) || empty($yearsem)) {
+        $error = "Please fill all details in your profile to apply for leave.";
     }
+    if (isset($_POST['leave'])) {
+        $leavetype = mysqli_real_escape_string($conn, $_REQUEST['leavetype']);
+        $reason = mysqli_real_escape_string($conn, $_REQUEST['reason']);
+        $todate = mysqli_real_escape_string($conn, $_REQUEST['todate']);
+        $fromdate = mysqli_real_escape_string($conn, $_REQUEST['fromdate']);
 
-    // Check if the student has enough leave balance
-    if ($remaining_leaves < $days) {
-        $error = "You do not have enough leaves.";
-    }
+        // Calculate the number of days
+        $startDate = new DateTime($fromdate);
+        $endDate = new DateTime($todate);
+        $interval = $startDate->diff($endDate);
+        $days = $interval->days;
 
-    // Insert the leave request
-    if (empty($error)) {
-        // Query to get HOD and Class Incharge
-        $sql1 = "SELECT * FROM user WHERE role='hod' AND department='$dept'";
-        $result1 = mysqli_query($conn, $sql1);
-      
-        $hod = mysqli_fetch_assoc($result1);
-        $hodrollnumber = $hod['rollnumber'];
+        // Validate date range
+        if (strtotime($fromdate) > strtotime($todate)) {
+            $error = "The from date cannot be after the to date.";
+        }
 
-        $sql2 = "SELECT * FROM user WHERE role='classincharge' AND department='$dept'";
-        $result2 = mysqli_query($conn, $sql2);
-      
-        $classincharge = mysqli_fetch_assoc($result2);
-        $classinchargerollnumber = $classincharge['rollnumber'];
+        // Check if the student has enough leave balance
+        if ($remaining_leaves < $days) {
+            $error = "You do not have enough leaves.";
+        }
 
-        // Insert the leave request into database
-        $sql = "INSERT INTO leaves (studentrollnumber, leavetype, reason, todate, fromdate, hodrollnumber, classinchargerollnumber, status, applyingtime, noofdaystaken)
+        // Insert the leave request
+        if (empty($error)) {
+            // Query to get HOD and Class Incharge
+            $sql1 = "SELECT * FROM user WHERE role='hod' AND department='$dept'";
+            $result1 = mysqli_query($conn, $sql1);
+
+            $hod = mysqli_fetch_assoc($result1);
+            $hodrollnumber = $hod['rollnumber'];
+
+            $sql2 = "SELECT * FROM user WHERE role='classincharge' AND department='$dept'";
+            $result2 = mysqli_query($conn, $sql2);
+
+            $classincharge = mysqli_fetch_assoc($result2);
+            $classinchargerollnumber = $classincharge['rollnumber'];
+
+            // Insert the leave request into database
+            $sql = "INSERT INTO leaves (studentrollnumber, leavetype, reason, todate, fromdate, hodrollnumber, classinchargerollnumber, status, applyingtime, noofdaystaken)
                 VALUES ('$studentrollnumber', '$leavetype', '$reason', '$todate', '$fromdate', '$hodrollnumber', '$classinchargerollnumber', 'pending', NOW(), '$days')";
-        
-        if (mysqli_query($conn, $sql)) {
-            // Update remaining leaves
-            $new_remaining_leaves = $remaining_leaves - $days;
-            $update_sql = "UPDATE user SET remainingleaves='$new_remaining_leaves' WHERE rollnumber='$studentrollnumber'";
-            if (mysqli_query($conn, $update_sql)) {
-                header('Location: leave.php?msg=leave applied');
-                exit();
+
+            if (mysqli_query($conn, $sql)) {
+                // Update remaining leaves
+                $new_remaining_leaves = $remaining_leaves - $days;
+                $update_sql = "UPDATE user SET remainingleaves='$new_remaining_leaves' WHERE rollnumber='$studentrollnumber'";
+                if (mysqli_query($conn, $update_sql)) {
+
+                    // Assuming you have the student's roll number and the HOD's roll number stored
+                    // $studentRollNumber = $roll; // student's roll number
+                    // $hodRollNumber = $hodRoll; // HOD's roll number (you should define this)
+
+                    $notificationsmsg = "You have a new leave request from student " . $studentRollNumber . ". The status of the request is " . $updatedstatus;
+
+                    // Prepare the SQL query to insert the notification
+                    $sql1 = "INSERT INTO notifications(notificationsmsg, fromrollnumber, torollnumber, notificationtime) 
+         VALUES (?, ?, ?, NOW())";
+
+                    // Check if the SQL statement is prepared
+                    if ($notifStmt = mysqli_prepare($conn, $sql1)) {
+                        // Bind parameters to the prepared statement
+                        mysqli_stmt_bind_param($notifStmt, "sss", $notificationsmsg, $studentrollnumber, $hodrollnumber);
+
+                        // Execute the prepared statement
+                        mysqli_stmt_execute($notifStmt);
+
+                        // Close the statement
+                        mysqli_stmt_close($notifStmt);
+                    } else {
+                        // If there is an error in preparing the statement
+                        echo "Error inserting notification: " . mysqli_error($conn) . "<br>";
+                    }
+
+
+                    header('Location: leave.php?msg=leave applied');
+                    exit();
+                } else {
+                    $error = "Error updating the number of leaves. Please try again.";
+                }
             } else {
-                $error = "Error updating the number of leaves. Please try again.";
+                $error = "Error applying for leave. Please try again.";
             }
-        } else {
-            $error = "Error applying for leave. Please try again.";
         }
     }
 }
@@ -86,6 +123,7 @@ if (isset($_POST['leave'])) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -218,4 +256,5 @@ if (isset($_POST['leave'])) {
     <div class="sidebar-overlay" id="sidebar_overlay"></div>
     <?php include_once('common/footer.php'); ?>
 </body>
+
 </html>

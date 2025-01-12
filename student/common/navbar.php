@@ -50,7 +50,7 @@
 										<a href="javascript:void(0)" data-toggle="dropdown" class=" menu-style dropdown-toggle">
 											<div class="user-avatar d-inline-block">
 
-												<img src="data:image/jpeg;base64,<?php echo base64_encode($row['profileimg']); ?>" alt="user avatar" class="rounded-circle img-fluid" width="55">
+												<img src="data:image/jpeg;base64,<?php echo base64_encode($row['profileimg']); ?>" alt="No Profile Img" class="rounded-circle img-fluid" width="55">
 
 												<?php
 												$sql1 = "SELECT COUNT(*) AS count
@@ -91,7 +91,7 @@
 													</span>
 												</span>
 											</a>
-											<a class="dropdown-item p-2" href="settings.html">
+											<a class="dropdown-item p-2" href="notification.php">
 												<span class="media align-items-center">
 													<span class="fa-regular fa-bell mr-3"></span>
 
@@ -130,7 +130,7 @@
 										<div class="user-avatar d-inline-block mr-3">
 
 
-											<img src="data:image/jpeg;base64,<?php echo base64_encode($row['profileimg']); ?>" alt="user avatar" class="rounded-circle img-fluid" width="55">
+											<img src="data:image/jpeg;base64,<?php echo base64_encode($row['profileimg']); ?>" alt="No Profile Img" class="rounded-circle img-fluid" width="55">
 										</div>
 									</a>
 								</div>

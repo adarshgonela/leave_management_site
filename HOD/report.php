@@ -1,33 +1,41 @@
 <?php
 session_start();
 $error = "";
+include_once('../db.php');
+include_once('../auth/conn.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-
-	<!-- Required meta tags -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<?php include_once('common/header.php'); ?>
-
+	<style>
+		@media print {
+			body * {
+				visibility: hidden;
+			}
+			#reportTable, #reportTable * {
+				visibility: visible;
+			}
+			#reportTable {
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+		}
+	</style>
 </head>
 
 <body>
-
-	<!-- Inner wrapper -->
 	<div class="inner-wrapper">
-		<!-- Header -->
-		<?php include_once('common/navbar.php');  ?>
-		<!-- /Header -->
-
-		<!-- Content -->
+		<?php include_once('common/navbar.php'); ?>
 		<div class="page-wrapper">
 			<div class="container-fluid">
 				<div class="row">
-					<div class=" col-xl-3 col-lg-4 col-md-12 theiaStickySidebar">
+					<div class="col-xl-3 col-lg-4 col-md-12 theiaStickySidebar">
 						<aside class="sidebar sidebar-user">
 							<div class="row">
 								<div class="col-md-12">
@@ -50,31 +58,25 @@ $error = "";
 									</div>
 								</div>
 							</div>
-							<!-- Sidebar -->
-							<?php
-							include_once('common/sidebar.php');  ?>
-
-							<!-- /Sidebar -->
-
-
+							<?php include_once('common/sidebar.php'); ?>
 						</aside>
 					</div>
 
 					<div class="col-xl-9 col-lg-8 col-md-12">
-
 						<div class="row">
-
 							<div class="col-md-12">
 								<div class="card ctm-border-radius shadow-sm grow">
 									<div class="card-header">
 										<h4 class="card-title mb-0">Today Leaves</h4>
+										<div class="float-right">
+											<button class="btn btn-primary btn-sm" onclick="downloadCSV()">Download</button>
+											<button class="btn btn-secondary btn-sm" onclick="printReport()">Print</button>
+										</div>
 									</div>
 									<div class="card-body">
 										<div class="employee-office-table">
 											<div class="table-responsive">
-
-
-												<table class="table custom-table mb-0">
+												<table id="reportTable" class="table custom-table mb-0">
 													<thead>
 														<tr>
 															<th>Roll Number</th>
@@ -82,10 +84,8 @@ $error = "";
 															<th>From</th>
 															<th>To</th>
 															<th>Days</th>
-															<!-- <th>Remaining Days</th> -->
 															<th>Reason</th>
 															<th>Status</th>
-															<!-- <th class="text-right">Action</th> -->
 															<th>Applying Time</th>
 														</tr>
 													</thead>
@@ -95,16 +95,11 @@ $error = "";
 														$limit = 10;
 														$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 														$offset = ($page - 1) * $limit;
-
-														// Get total number of leaves
 														$result = $conn->query("SELECT COUNT(*) AS total FROM leaves");
 														$row = $result->fetch_assoc();
 														$total_rows = $row['total'];
-														$total_pages = ceil($total_rows / $limit); // For example: 50/10 = 5 pages
-
-														// Fetch leaves data with pagination
+														$total_pages = ceil($total_rows / $limit);
 														$sql = "SELECT * FROM leaves ORDER BY id DESC LIMIT $offset, $limit";
-
 														$result = mysqli_query($conn, $sql);
 
 														while ($row = mysqli_fetch_assoc($result)) {
@@ -116,12 +111,6 @@ $error = "";
 															$status = $row['status'];
 															$reason = $row['reason'];
 															$time = $row['applyingtime'];
-
-															// Get student name or other info from the user table, if needed
-															$user_sql = "SELECT name FROM user WHERE rollnumber = '$rollnumber'";
-															$user_result = mysqli_query($conn, $user_sql);
-															$user_row = mysqli_fetch_assoc($user_result);
-															// $student_name = $user_row['name'];
 														?>
 															<tr>
 																<td><?php echo $rollnumber; ?></td>
@@ -130,28 +119,19 @@ $error = "";
 																<td><?php echo $todate; ?></td>
 																<td><?php echo $days; ?></td>
 																<td><?php echo $reason; ?></td>
-																<form action="redirect/leaveupdate.php?studentrollnumber=<?php echo $rollnumber; ?>" method="POST">
-																	<td>
-																		<select class="btn btn-theme ctm-border-radius text-white btn-sm" name="status">
-																			<option value="<?php echo $status; ?>"><?php echo $status; ?></option>
-																			<option value="pending">Pending</option>
-																			<option value="Approved">Approved</option>
-																			<option value="rejected">Rejected</option>
-																		</select>
-																	</td>
-																	<!-- <td class="text-right text-danger">
-																		<button type="submit" class="btn btn-sm btn-outline-danger">
-																			<span class="lnr lnr-trash"></span> Update
-																		</button>
-																	</td> -->
-																</form>
+																<td>
+																	<span class="badge 
+																		<?php 
+																		// echo ($status === 'approved') ? 'badge-success' : 
+																		// 	 (($status === 'rejected') ? 'badge-danger' : 'badge-warning'); ?>">
+																		<?php echo ucfirst($status); ?>
+																	</span>
+																</td>
 																<td><?php echo $time; ?></td>
 															</tr>
 														<?php } ?>
 													</tbody>
 												</table>
-
-												<!-- Pagination controls -->
 												<nav aria-label="Page navigation example">
 													<ul class="pagination justify-content-center">
 														<li class="page-item <?php echo ($page == 1) ? 'disabled' : ''; ?>">
@@ -159,10 +139,9 @@ $error = "";
 														</li>
 
 														<?php
-														// Loop through all the page numbers
 														for ($i = 1; $i <= $total_pages; $i++) {
 															if ($i == $page) {
-																echo "<li class='page-item active'><span class='page-link'>$i</span></li>"; // Current page
+																echo "<li class='page-item active'><span class='page-link'>$i</span></li>";
 															} else {
 																echo "<li class='page-item'><a class='page-link' href='?page=$i'>$i</a></li>";
 															}
@@ -185,13 +164,34 @@ $error = "";
 				</div>
 			</div>
 		</div>
-		<!--/Content-->
 
 	</div>
-	<!-- Inner Wrapper -->
-
 	<div class="sidebar-overlay" id="sidebar_overlay"></div>
-	<?php include_once('common/footer.php') ?>
+	<?php include_once('common/footer.php'); ?>
+	<script>
+		// Print the report
+		function printReport() {
+			window.print();
+		}
+
+		// Download the table as CSV
+		function downloadCSV() {
+			const table = document.getElementById('reportTable');
+			let csv = [];
+			for (let row of table.rows) {
+				let cols = [...row.cells].map(cell => "${cell.innerText}");
+				csv.push(cols.join(','));
+			}
+			let csvContent = csv.join('\n');
+			let blob = new Blob([csvContent], { type: 'text/csv' });
+			let url = URL.createObjectURL(blob);
+
+			let a = document.createElement('a');
+			a.href = url;
+			a.download = 'report.csv';
+			a.click();
+		}
+	</script>
 </body>
 
 </html>
