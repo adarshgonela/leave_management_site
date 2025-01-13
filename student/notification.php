@@ -71,32 +71,32 @@ if (!isset($_SESSION['rollnumber'])) {
                                     </div>
                                     <div class="card-body">
                                         <?php
-                                        $sql1 = "SELECT * FROM notifications WHERE torollnumber = '$rollnumber' AND DATE(notificationtime) = CURDATE()";
-                                        $result1 = mysqli_query($conn, $sql1);
+                                       $sql1 = "SELECT * FROM notifications WHERE torollnumber = '$rollnumber' AND DATE(notificationtime) = CURDATE() ORDER BY notificationtime DESC";
+                                       $result1 = mysqli_query($conn, $sql1);
 
-                                        while ($row = $result1->fetch_assoc()) {
-                                            // Calculate the time difference in seconds
-                                            $notification_time = strtotime($row['notificationtime']);
-                                            $current_time = time();
-                                            $time_diff = $current_time - $notification_time;
-
-                                            // Convert time difference to more human-readable format
-                                            if ($time_diff < 60) {
-                                                // Less than a minute ago
-                                                $time_display = $time_diff . " seconds ago";
-                                            } elseif ($time_diff >= 60 && $time_diff < 3600) {
-                                                // Less than an hour ago
-                                                $minutes = floor($time_diff / 60);
-                                                $time_display = $minutes . "m ago";
-                                            } elseif ($time_diff >= 3600 && $time_diff < 86400) {
-                                                // Less than a day ago
-                                                $hours = floor($time_diff / 3600);
-                                                $time_display = $hours . "h ago";
-                                            } else {
-                                                // More than a day ago
-                                                $days = floor($time_diff / 86400);
-                                                $time_display = $days . "d ago";
-                                            }
+                                       while ($row = $result1->fetch_assoc()) {
+                                        // Calculate the time difference in seconds
+                                        $notification_time = strtotime($row['notificationtime']);
+                                        $current_time = time();
+                                        // $time_diff = $notification_time- $current_time ;
+                                        $time_diff = abs($current_time - $notification_time);
+                                        // Convert time difference to more human-readable format
+                                        if ($time_diff < 60) {
+                                            // Less than a minute ago
+                                            $time_display = $time_diff . " seconds ago";
+                                        } elseif ($time_diff >= 60 && $time_diff < 3600) {
+                                            // Less than an hour ago
+                                            $minutes = floor($time_diff / 60);
+                                            $time_display = $minutes . "m ago";
+                                        } elseif ($time_diff >= 3600 && $time_diff < 86400) {
+                                            // Less than a day ago
+                                            $hours = floor($time_diff / 3600);
+                                            $time_display = $hours . "h ago";
+                                        } else {
+                                            // More than a day ago
+                                            $days = floor($time_diff / 86400);
+                                            $time_display = $days . "d ago";
+                                        }
                                         ?>
                                             <div class="flex justify-between py-6 px-4 bg-white/30 rounded-lg">
                                                 <div class="flex items-center space-x-4">

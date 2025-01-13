@@ -86,7 +86,7 @@ if ($attendencedb <= $attendencelimit) {//60< 75
                     // $studentRollNumber = $roll; // student's roll number
                     // $hodRollNumber = $hodRoll; // HOD's roll number (you should define this)
 
-                    $notificationsmsg = "You have a new leave request from student " . $studentRollNumber . ". The status of the request is " . $updatedstatus;
+                    $notificationsmsg = "You have a new leave request from student  $studentrollnumber";
 
                     // Prepare the SQL query to insert the notification
                     $sql1 = "INSERT INTO notifications(notificationsmsg, fromrollnumber, torollnumber, notificationtime) 

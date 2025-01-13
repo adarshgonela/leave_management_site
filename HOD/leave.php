@@ -107,6 +107,7 @@ $error = "";
 														$result = mysqli_query($conn, $sql);
 
 														while ($row = mysqli_fetch_assoc($result)) {
+															
 															$leavetype = $row['leavetype'];
 															$rollnumber = $row['studentrollnumber'];
 															$todate = $row['todate'];
@@ -123,7 +124,7 @@ $error = "";
 															// $student_name = $user_row['name'];
 														?>
 															<tr>
-																<td><?php echo $rollnumber; ?></td>
+																<td><a href="../student/stuprofile.php?rollnumber=<?php echo $rollnumber ?>"><?php echo $rollnumber; ?></a></td>
 																<td><?php echo $leavetype; ?></td>
 																<td><?php echo $fromdate; ?></td>
 																<td><?php echo $todate; ?></td>

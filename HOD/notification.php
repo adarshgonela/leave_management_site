@@ -78,7 +78,8 @@ if (!isset($_SESSION['rollnumber'])) {
                                             // Calculate the time difference in seconds
                                             $notification_time = strtotime($row['notificationtime']);
                                             $current_time = time();
-                                            $time_diff = $current_time - $notification_time;
+                                            $time_diff = abs($current_time - $notification_time);
+                                            // $time_diff = $notification_time- $current_time ;
 
                                             // Convert time difference to more human-readable format
                                             if ($time_diff < 60) {

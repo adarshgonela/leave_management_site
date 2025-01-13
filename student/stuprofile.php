@@ -1,8 +1,7 @@
 <?php
 session_start();
 include_once('../db.php');
-
-$rollnumber = $_SESSION['rollnumber'];
+$rollnumber = $_REQUEST['rollnumber'];
 $sql = "SELECT * FROM user where rollnumber='$rollnumber'";
 $result = mysqli_query($conn, $sql);
 
@@ -19,45 +18,45 @@ $image = $row['profileimg'];
 
 $base64Image = base64_encode($image);
 
-if (isset($_POST['update'])) {
-	$new_email = $_REQUEST['email'];
-	$new_name = $_REQUEST['name'];
-	$new_phno = $_REQUEST['phno'];
-	$new_rollnumber = $_REQUEST['rollnumber'];
-	$new_gender = $_REQUEST['gender'];
-	$new_address = $_REQUEST['address'];
-	$new_department = $_REQUEST['department'];
-	$new_yearsem = $_REQUEST['yearsem'];
-	$user_id = $_REQUEST['id'];
+// if (isset($_POST['update'])) {
+// 	$new_email = $_REQUEST['email'];
+// 	$new_name = $_REQUEST['name'];
+// 	$new_phno = $_REQUEST['phno'];
+// 	$new_rollnumber = $_REQUEST['rollnumber'];
+// 	$new_gender = $_REQUEST['gender'];
+// 	$new_address = $_REQUEST['address'];
+// 	$new_department = $_REQUEST['department'];
+// 	$new_yearsem = $_REQUEST['yearsem'];
+// 	$user_id = $_REQUEST['id'];
 
-  if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
-	$imageTmpName = $_FILES['image']['tmp_name'];
-	$imageData = file_get_contents($imageTmpName);
-} else {
-	$imageData = null;  
-}
-	$sql = "UPDATE user SET email = ?, name = ?, phno = ?, rollnumber = ?, gender = ?, address = ?, department = ?, yearsem = ?, profileimg = ? WHERE id = ?";
+//   if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
+// 	$imageTmpName = $_FILES['image']['tmp_name'];
+// 	$imageData = file_get_contents($imageTmpName);
+// } else {
+// 	$imageData = null;  
+// }
+// 	$sql = "UPDATE user SET email = ?, name = ?, phno = ?, rollnumber = ?, gender = ?, address = ?, department = ?, yearsem = ?, profileimg = ? WHERE id = ?";
 
-	$stmt = $conn->prepare($sql);
+// 	$stmt = $conn->prepare($sql);
 
-	// Check if the statement was prepared successfully
-	if ($stmt === false) {
-		die("Error preparing the statement: " . $conn->error);
-	}
+// 	// Check if the statement was prepared successfully
+// 	if ($stmt === false) {
+// 		die("Error preparing the statement: " . $conn->error);
+// 	}
 
-	// Bind the parameters to the statement
-	$stmt->bind_param("sssssssssi", $new_email, $new_name, $new_phno, $new_rollnumber, $new_gender, $new_address, $new_department, $new_yearsem, $imageData, $user_id);
+// 	// Bind the parameters to the statement
+// 	$stmt->bind_param("sssssssssi", $new_email, $new_name, $new_phno, $new_rollnumber, $new_gender, $new_address, $new_department, $new_yearsem, $imageData, $user_id);
 
-	// Execute the query
-	if ($stmt->execute()) {
-		echo "Record updated successfully";
-	} else {
-		echo "Error updating record: " . $stmt->error;
-	}
+// 	// Execute the query
+// 	if ($stmt->execute()) {
+// 		echo "Record updated successfully";
+// 	} else {
+// 		echo "Error updating record: " . $stmt->error;
+// 	}
 
-	// Close the statement and connection
-	$stmt->close();
-}
+// 	// Close the statement and connection
+// 	$stmt->close();
+// }
 
 ?>
 
@@ -158,14 +157,14 @@ if (isset($_POST['update'])) {
 												<div class="col-sm-6 leave-col">
 													<div class="form-group">
 														<label>Name</label>
-														<input type="text" class="form-control" value="<?php echo $name ?>" name="name">
+														<input type="text" class="form-control" value="<?php echo $name ?>" name="name" disabled>
 
 													</div>
 												</div>
 												<div class="col-sm-6 leave-col">
 													<div class="form-group">
 														<label>Email</label>
-														<input type="email" class="form-control" value="<?php echo $email ?>" name="email">
+														<input type="email" class="form-control" value="<?php echo $email ?>" name="email" disabled>
 													</div>
 												</div>
 												<div class="col-sm-6">
@@ -175,7 +174,7 @@ if (isset($_POST['update'])) {
 															<span class="text-danger">*</span>
 														</label>
 
-														<select class="form-control select" name="gender" value="<?php echo $gender ?>">
+														<select class="form-control select" name="gender" value="<?php echo $gender ?>" disabled>
 															<option value=""><?php echo $gender ?></option>
 															<option value="Male">Male</option>
 															<option value="Female">Female</option>
@@ -185,13 +184,13 @@ if (isset($_POST['update'])) {
 												<div class="col-sm-6 leave-col">
 													<div class="form-group">
 														<label>Phone Number</label>
-														<input type="text" class="form-control" value="<?php echo $phno ?>" name="phno">
+														<input type="text" class="form-control" value="<?php echo $phno ?>" name="phno" disabled>
 													</div>
 												</div>
 												<div class="col-sm-6 leave-col">
 													<div class="form-group">
 														<label>Roll Number</label>
-														<input type="text" class="form-control" value="<?php echo $rollnumber ?>" name="rollnumber">
+														<input type="text" class="form-control" value="<?php echo $rollnumber ?>" name="rollnumber" disabled>
 													</div>
 												</div>
 												<div class="col-sm-6">
@@ -200,7 +199,7 @@ if (isset($_POST['update'])) {
 															Department
 															<span class="text-danger">*</span>
 														</label>
-														<select class="form-control select" name="department">
+														<select class="form-control select" name="department" disabled>
 															<option><?php echo $department; ?></option>
 															<option value="ECE">ECE</option>
 															<option value="CSE">CSE</option>
@@ -224,7 +223,7 @@ if (isset($_POST['update'])) {
 														year and sem
 														<span class="text-danger">*</span>
 													</label>
-													<select class="form-control select" name="yearsem">
+													<select class="form-control select" name="yearsem" disabled>
 														<option><?php echo $yearsem; ?></option>
 														<option value="1-1">1-1</option>
 														<option value="1-2">1-2</option>
@@ -241,15 +240,15 @@ if (isset($_POST['update'])) {
 												<div class="col-sm-12">
 													<div class="form-group mb-0">
 														<label>Address</label>
-														<input type="text" class="form-control" value="<?php echo $address ?>" name="address">
+														<input type="text" class="form-control" value="<?php echo $address ?>" name="address" disabled>
 														<input type="hidden" name="update">
 													</div>
 												</div>
 											</div>
-											<div class="text-center">
+											<!-- <div class="text-center">
 												<button class="btn btn-theme button-1 text-white ctm-border-radius mt-4">Update Details</button>
 												<a href="profile.php" class="btn btn-danger text-white ctm-border-radius mt-4" name="cancel">Cancel</a>
-											</div>
+											</div> -->
 
 										</form>
 

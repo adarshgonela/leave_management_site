@@ -1,4 +1,3 @@
-<?php 
-$title="HOD";
-$totalleaves=22;
-?>
+<?php
+$title = "HOD";
+$totalleaves = 22;
