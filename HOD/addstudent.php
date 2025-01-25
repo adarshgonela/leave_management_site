@@ -36,7 +36,7 @@ if (isset($_POST['student'])) {
 }
 
 // Close the connection
-$conn->close();
+// $conn->close();
 ?>
 
 <!DOCTYPE html>

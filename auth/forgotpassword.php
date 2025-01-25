@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="card shadow-sm" style="max-width: 500px; width: 100%;">
         <div class="row g-0">
             <div class="col-md-4 d-flex align-items-center justify-content-center bg-primary text-white">
-                <img class="img-fluid p-3" src="../assets/img/logo.png" alt="Logo">
+                <img class="img-fluid p-3" src="../assets/logoelms.png" alt="Logo">
             </div>
             <div class="col-md-8">
                 <div class="card-body">
