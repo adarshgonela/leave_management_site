@@ -93,8 +93,23 @@ include_once('../db.php');
                                                         $total_rows = $row['total'];
                                                         $total_pages = ceil($total_rows / $limit);
 
+
+
+                                                        $user_sql = "SELECT department FROM user WHERE rollnumber = '$rollnumber'";
+                                                        $user_result = mysqli_query($conn, $user_sql);
+                                                        $user_row = mysqli_fetch_assoc($user_result);
+                                                        $department = $user_row['department'];
+
+
+
                                                         // Fetch leaves data with pagination
-                                                        $sql = "SELECT * FROM leaves ORDER BY id DESC LIMIT $offset, $limit";
+                                                        // $sql = "SELECT * FROM leaves ORDER BY id DESC LIMIT $offset, $limit";
+                                                        $sql = "SELECT l.* 
+                                                        FROM leaves l
+                                                        JOIN user u ON l.studentrollnumber = u.rollnumber
+                                                        WHERE u.department = '$department'
+                                                        ORDER BY l.id DESC
+                                                        LIMIT $offset, $limit";
                                                         $result = mysqli_query($conn, $sql);
 
                                                         while ($row = mysqli_fetch_assoc($result)) {
@@ -108,9 +123,9 @@ include_once('../db.php');
                                                             $time = $row['applyingtime'];
 
                                                             // Get student name or other info from the user table, if needed
-                                                            $user_sql = "SELECT name FROM user WHERE rollnumber = '$rollnumber'";
-                                                            $user_result = mysqli_query($conn, $user_sql);
-                                                            $user_row = mysqli_fetch_assoc($user_result);
+                                                            // $user_sql = "SELECT name FROM user WHERE rollnumber = '$rollnumber'";
+                                                            // $user_result = mysqli_query($conn, $user_sql);
+                                                            // $user_row = mysqli_fetch_assoc($user_result);
                                                         ?>
                                                             <tr>
                                                                 <td><?php echo $rollnumber; ?></td>
@@ -171,7 +186,9 @@ include_once('../db.php');
 
     <script>
         function downloadPDF() {
-            const { jsPDF } = window.jspdf;
+            const {
+                jsPDF
+            } = window.jspdf;
             const doc = new jsPDF();
 
             // Add a title or heading for the report
@@ -183,14 +200,14 @@ include_once('../db.php');
 
             // Fetch all leave data (without pagination)
             const allLeaves = <?php
-                $sql = "SELECT * FROM leaves ORDER BY id DESC";
-                $result = mysqli_query($conn, $sql);
-                $data = [];
-                while ($row = mysqli_fetch_assoc($result)) {
-                    $data[] = $row;
-                }
-                echo json_encode($data);
-            ?>;
+                                $sql = "SELECT * FROM leaves ORDER BY id DESC";
+                                $result = mysqli_query($conn, $sql);
+                                $data = [];
+                                while ($row = mysqli_fetch_assoc($result)) {
+                                    $data[] = $row;
+                                }
+                                echo json_encode($data);
+                                ?>;
 
             // Create the table using autoTable
             const rows = allLeaves.map(row => [

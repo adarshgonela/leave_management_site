@@ -126,7 +126,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 												<?php
 												$sql = "SELECT COUNT(*) AS status
 												FROM lmsbtech.leaves
-												WHERE status = 'pending'";
+												WHERE status = 'pending' AND DATE(applyingtime)= CURDATE()";
 
 												$result = mysqli_query($conn, $sql);
 												$row = $result->fetch_assoc();
@@ -149,7 +149,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 												<?php
 												$sql = "SELECT COUNT(*) AS status
 												FROM leaves
-												WHERE status = 'approved'";;
+												WHERE status = 'approved' AND DATE(applyingtime)= CURDATE()";;
 
 												$result = mysqli_query($conn, $sql);
 												$row = $result->fetch_assoc();
@@ -171,7 +171,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 												<?php
 												$sql = "SELECT COUNT(*) AS status
 												FROM leaves
-												WHERE status = 'rejected'";
+												WHERE status = 'rejected' AND DATE(applyingtime)= CURDATE()";
 
 												$result = mysqli_query($conn, $sql);
 												$row = $result->fetch_assoc();

@@ -27,7 +27,9 @@ $yearsem = $row['yearsem'];
 $remaining_leave1 = $row['remainingleaves'];
 $attendencedb = $row['attendence'];
 
-if ($attendencedb <= $attendencelimit) {//60< 75
+// if ($attendencedb <= $attendencelimit ) {//60< 75
+if ($remaining_leaves <= $remainingleaveslimit ) {//60< 75
+
     $error = " your Atttendence is below 75% ,you cannot apply leaves";
 } else {
    

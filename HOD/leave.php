@@ -101,8 +101,23 @@ $error = "";
 														$total_rows = $row['total'];
 														$total_pages = ceil($total_rows / $limit); // For example: 50/10 = 5 pages
 
+
+														$user_sql = "SELECT department FROM user WHERE rollnumber = '$rollnumber'";
+                                                        $user_result = mysqli_query($conn, $user_sql);
+                                                        $user_row = mysqli_fetch_assoc($user_result);
+                                                        $department = $user_row['department'];
+
+
+
+
 														// Fetch leaves data with pagination
-														$sql = "SELECT * FROM leaves ORDER BY id DESC LIMIT $offset, $limit";
+														// $sql = "SELECT * FROM leaves ORDER BY id  DESC LIMIT $offset, $limit";
+														$sql = "SELECT l.* 
+                                                        FROM leaves l
+                                                        JOIN user u ON l.studentrollnumber = u.rollnumber
+                                                        WHERE u.department = '$department'
+                                                        ORDER BY l.id DESC
+                                                        LIMIT $offset, $limit";
 
 														$result = mysqli_query($conn, $sql);
 
@@ -118,10 +133,11 @@ $error = "";
 															$time = $row['applyingtime'];
 
 															// Get student name or other info from the user table, if needed
-															$user_sql = "SELECT name FROM user WHERE rollnumber = '$rollnumber'";
+															$user_sql = "SELECT * FROM user WHERE rollnumber = '$rollnumber'";
 															$user_result = mysqli_query($conn, $user_sql);
 															$user_row = mysqli_fetch_assoc($user_result);
-															// $student_name = $user_row['name'];
+															//   echo $user_row['department'];
+															
 														?>
 															<tr>
 																<td><a href="../student/stuprofile.php?rollnumber=<?php echo $rollnumber ?>"><?php echo $rollnumber; ?></a></td>
